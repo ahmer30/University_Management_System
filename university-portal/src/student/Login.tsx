@@ -1,19 +1,37 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { studentLogin as apiStudentLogin } from "../api";
 
 export default function StudentLogin() {
   const [showPass, setShowPass] = useState(false);
   const [remember, setRemember] = useState(false);
-  const [form, setForm] = useState({ id: "", password: "" });
-  const navigate = useNavigate();
+  const [form, setForm]         = useState({ id: "", password: "" });
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(false);
+  const navigate                = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Navigate to dashboard (auth logic goes here later)
-    navigate("/student/dashboard");
+    setError("");
+    if (!form.id || !form.password) {
+      setError("Please enter your Student ID and password.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const data = await apiStudentLogin(form.id.trim(), form.password);
+      localStorage.setItem("ums_token", data.token);
+      localStorage.setItem("ums_user",  JSON.stringify(data.user));
+      localStorage.setItem("ums_role",  "student");
+      navigate("/student/dashboard");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -203,9 +221,26 @@ export default function StudentLogin() {
             </button>
           </div>
 
+          {/* Error message */}
+          {error && (
+            <div
+              style={{
+                padding: "10px 14px",
+                borderRadius: "10px",
+                background: "rgba(224,92,92,0.1)",
+                boxShadow: "inset 3px 3px 6px #d4b4b4, inset -3px -3px 6px #ffffff",
+                fontSize: "0.82rem",
+                color: "#c0392b",
+                fontWeight: 500,
+              }}
+            >
+              ⚠ {error}
+            </div>
+          )}
+
           {/* Submit */}
-          <button type="submit" className="neu-btn-accent">
-            Sign In
+          <button type="submit" className="neu-btn-accent" disabled={loading}>
+            {loading ? "Signing in…" : "Sign In"}
           </button>
         </form>
 

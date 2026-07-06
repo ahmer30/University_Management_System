@@ -330,28 +330,44 @@ CREATE TABLE announcements (
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- ============================================================================
--- SEED DATA — capped at 20 rows per table
--- Passwords below are placeholder bcrypt hashes (cost 12) for 'Password123!'
--- Replace via your auth service before using in any real environment.
+-- SEED DATA
+-- Passwords are individual bcrypt hashes (cost 12) — see credentials below:
+--
+--  STUDENTS  (login with student_id + password)
+--    2021-CS-0042  Alex Johnson   →  Alex@2021
+--    2021-CS-0011  Sara Ahmed     →  Sara@2021
+--    2021-CS-0023  Bilal Khan     →  Bilal@2021
+--    2022-CS-0007  Emma Wilson    →  Emma@2022
+--    2022-CS-0018  Hammad Shabir  →  Hammad@2022
+--    2023-MATH-0004 Liam Chen     →  Liam@2023
+--    2023-MATH-0012 Fatima Noor   →  Fatima@2023
+--    2021-CS-0055  Noah Davis     →  Noah@2021
+--    2020-CS-0002  Olivia Brown   →  Olivia@2020
+--    2022-CS-0031  Zainab Ali     →  Zainab@2022
+--
+--  TEACHERS  (login with email + password)
+--    john.doe@ums.edu     John Doe      →  JohnDoe@123
+--    emily.carter@ums.edu Emily Carter  →  Emily@123
+--    maria.garcia@ums.edu Maria Garcia  →  Maria@123
+--    alan.reed@ums.edu    Alan Reed     →  Alan@123
+--    david.kim@ums.edu    David Kim     →  David@123
+--    nina.patel@ums.edu   Nina Patel    →  Nina@123
 -- ============================================================================
-
-SET @pw := '$2b$12$KIXQ4hZ8yJ6b0m5nq0e6xOe8vQ1h2Z8f3nL9pQ7rT4wY6cB1dE2Fu';
 
 -- Departments (3)
 INSERT INTO departments (department_id, department_name) VALUES
 (1,'Computer Science'), (2,'Mathematics'), (3,'Electrical Engineering');
 
--- Teachers (5)
+-- Teachers — each with their own bcrypt hash
 INSERT INTO teachers (teacher_id, full_name, email, password_hash, phone_number, department_id, designation, office_location, office_hours, date_joined, status) VALUES
-('TCH-001','John Doe','john.doe@ums.edu',@pw,'+1-555-0101',1,'Professor','CS Block A-101','Mon/Wed 2-4 PM','2015-08-01','Active'),
-('TCH-002','Emily Carter','emily.carter@ums.edu',@pw,'+1-555-0102',2,'Dr.','Math Block B-204','Tue/Thu 1-3 PM','2017-01-15','Active'),
-('TCH-003','Maria Garcia','maria.garcia@ums.edu',@pw,'+1-555-0103',1,'Professor','CS Block A-105','Mon/Fri 10-12 PM','2012-09-01','Active'),
-('TCH-004','Alan Reed','alan.reed@ums.edu',@pw,'+1-555-0104',3,'Dr.','EE Block C-301','Wed 3-5 PM','2018-03-10','Active'),
-('TCH-005','David Kim','david.kim@ums.edu',@pw,'+1-555-0105',1,'Professor','CS Block A-110','Tue/Thu 9-11 AM','2014-06-20','Active');
+('TCH-001','John Doe',    'john.doe@ums.edu',    '$2b$12$5kB08IenZEaock0JpNepF.FC.wLvg8bvmtnhFBe.RUXH8iWtKVgIa','+1-555-0101',1,'Professor',        'CS Block A-101','Mon/Wed 2-4 PM',  '2015-08-01','Active'),
+('TCH-002','Emily Carter','emily.carter@ums.edu','$2b$12$SPKwAA6DCuiHW2vMNDj69uJz69ILCr2DXNtqrOaIhuP6/mn7Z2P6q','+1-555-0102',2,'Dr.',               'Math Block B-204','Tue/Thu 1-3 PM','2017-01-15','Active'),
+('TCH-003','Maria Garcia','maria.garcia@ums.edu','$2b$12$vBf3.ErU2SiG40/LBcmhR.asPiqG0gCLhy1RXFsdaYTMBPCMe5mf6','+1-555-0103',1,'Professor',        'CS Block A-105','Mon/Fri 10-12 PM','2012-09-01','Active'),
+('TCH-004','Alan Reed',   'alan.reed@ums.edu',   '$2b$12$NQ3Q4bKSJKMLscQWEfgx6.BIbWE75qsxXfJzne37bhoiRYYP.gvku','+1-555-0104',3,'Dr.',               'EE Block C-301', 'Wed 3-5 PM',     '2018-03-10','Active'),
+('TCH-005','David Kim',   'david.kim@ums.edu',   '$2b$12$l3VLwGHXi7RyiXHoUN6/V.YtHDSM1YWFevCV5tMvyBFw3LoZgJB5O','+1-555-0105',1,'Professor',        'CS Block A-110','Tue/Thu 9-11 AM','2014-06-20','Active');
 
--- Extra teacher for CS-410 (Dr. Nina Patel) referenced in spec
 INSERT INTO teachers (teacher_id, full_name, email, password_hash, phone_number, department_id, designation, office_location, office_hours, date_joined, status) VALUES
-('TCH-006','Nina Patel','nina.patel@ums.edu',@pw,'+1-555-0106',1,'Dr.','CS Block A-112','Mon/Wed 11-1 PM','2016-02-01','Active');
+('TCH-006','Nina Patel',  'nina.patel@ums.edu',  '$2b$12$mGmiERQk2gvYmJEASFTs8OfcceHPCizpQCCkgJjX69bjiJzbNYcJi','+1-555-0106',1,'Dr.',               'CS Block A-112','Mon/Wed 11-1 PM','2016-02-01','Active');
 
 -- Department HODs
 UPDATE departments SET hod_id='TCH-001' WHERE department_id=1;
@@ -368,18 +384,18 @@ INSERT INTO semesters (semester_id, label, start_date, end_date, is_current) VAL
 (1,'Fall 2026','2026-09-01','2026-12-20',TRUE),
 (2,'Spring 2026','2026-01-15','2026-05-15',FALSE);
 
--- Students (10) — first row is the required Alex Johnson record
+-- Students — each with their own bcrypt hash
 INSERT INTO students (student_id, full_name, date_of_birth, gender, email, phone_number, address, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id, status) VALUES
-('2021-CS-0042','Alex Johnson','2003-03-15','Male','alex.johnson@ums.edu','+1-555-1001','221 Baker St','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2021-09-01',7,2021,'TCH-001','Active'),
-('2021-CS-0011','Sara Ahmed','2003-01-22','Female','sara.ahmed@ums.edu','+1-555-1002','12 Elm St','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2021-09-01',7,2021,'TCH-001','Active'),
-('2021-CS-0023','Bilal Khan','2002-11-05','Male','bilal.khan@ums.edu','+1-555-1003','34 Oak Ave','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2021-09-01',7,2021,'TCH-005','Active'),
-('2022-CS-0007','Emma Wilson','2004-02-18','Female','emma.wilson@ums.edu','+1-555-1004','56 Pine Rd','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2022-09-01',5,2022,'TCH-003','Active'),
-('2022-CS-0018','Hammad Shabir','2004-06-30','Male','hammad.shabir@ums.edu','+1-555-1005','78 Maple St','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2022-09-01',5,2022,'TCH-005','Active'),
-('2023-MATH-0004','Liam Chen','2005-03-09','Male','liam.chen@ums.edu','+1-555-1006','90 Cedar Ave','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',2,'2023-09-01',3,2023,'TCH-002','Active'),
-('2023-MATH-0012','Fatima Noor','2005-07-14','Female','fatima.noor@ums.edu','+1-555-1007','15 Birch Ln','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',2,'2023-09-01',3,2023,'TCH-002','Active'),
-('2021-CS-0055','Noah Davis','2003-09-25','Male','noah.davis@ums.edu','+1-555-1008','22 Spruce Dr','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2021-09-01',7,2021,'TCH-001','Active'),
-('2020-CS-0002','Olivia Brown','2002-05-03','Female','olivia.brown@ums.edu','+1-555-1009','44 Willow Ct','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2020-09-01',9,2020,'TCH-003','Graduated'),
-('2022-CS-0031','Zainab Ali','2004-10-11','Female','zainab.ali@ums.edu','+1-555-1010','5 Aspen Way','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2022-09-01',5,2022,'TCH-005','Active');
+('2021-CS-0042', 'Alex Johnson',  '2003-03-15','Male',  'alex.johnson@ums.edu', '+1-555-1001','221 Baker St',  '$2b$12$qVWpRMwOdDXsjceuXCEveeLF823avnQO4r3T22eyj/.bG5m6hfyqW',1,'2021-09-01',7,2021,'TCH-001','Active'),
+('2021-CS-0011', 'Sara Ahmed',    '2003-01-22','Female','sara.ahmed@ums.edu',   '+1-555-1002','12 Elm St',     '$2b$12$SPKYi3d4PX6Ld/Hd6MbpS.vu6Kd5H9KbF317gt9pkZIAUPnQsVzU.',1,'2021-09-01',7,2021,'TCH-001','Active'),
+('2021-CS-0023', 'Bilal Khan',    '2002-11-05','Male',  'bilal.khan@ums.edu',   '+1-555-1003','34 Oak Ave',    '$2b$12$rNkSrSftlYVehgbPijipaOseKWP4HC0sRDglvKdiRyfluQLSGUYHO',1,'2021-09-01',7,2021,'TCH-005','Active'),
+('2022-CS-0007', 'Emma Wilson',   '2004-02-18','Female','emma.wilson@ums.edu',  '+1-555-1004','56 Pine Rd',    '$2b$12$FUSe3LAzNTx/TjjcSSgQM.jmGVMteh801TjHZ9GV6IqY5s6bNhrPe',1,'2022-09-01',5,2022,'TCH-003','Active'),
+('2022-CS-0018', 'Hammad Shabir', '2004-06-30','Male',  'hammad.shabir@ums.edu','+1-555-1005','78 Maple St',   '$2b$12$OythOEUbiCVagoubN9XNcutzbUm9PYd9CS8pm7PulvZCbvR917.MG',1,'2022-09-01',5,2022,'TCH-005','Active'),
+('2023-MATH-0004','Liam Chen',    '2005-03-09','Male',  'liam.chen@ums.edu',    '+1-555-1006','90 Cedar Ave',  '$2b$12$JRZ5i2uQQT7M1JG0HtjlZebwQYwFSHeFlUMvQpXpXCmttVG2w.X8q',2,'2023-09-01',3,2023,'TCH-002','Active'),
+('2023-MATH-0012','Fatima Noor',  '2005-07-14','Female','fatima.noor@ums.edu',  '+1-555-1007','15 Birch Ln',   '$2b$12$UeG/34gfhsjGuTyxOAv3ueP3V7xq2dmdRYF7AAUrr/sY0IwO.cg3y',2,'2023-09-01',3,2023,'TCH-002','Active'),
+('2021-CS-0055', 'Noah Davis',    '2003-09-25','Male',  'noah.davis@ums.edu',   '+1-555-1008','22 Spruce Dr',  '$2b$12$WaTT1.B3Xsf8RMgv4LDr2.dlblr/SRWcXKIDta7Qja7oh1F1l2.pa',1,'2021-09-01',7,2021,'TCH-001','Active'),
+('2020-CS-0002', 'Olivia Brown',  '2002-05-03','Female','olivia.brown@ums.edu', '+1-555-1009','44 Willow Ct',  '$2b$12$AZCzj6zqc3TldZg2KDdNnOYpnOHHCskMe4NdoLhMXe3eFrYfCuSw.',1,'2020-09-01',9,2020,'TCH-003','Graduated'),
+('2022-CS-0031', 'Zainab Ali',    '2004-10-11','Female','zainab.ali@ums.edu',   '+1-555-1010','5 Aspen Way',   '$2b$12$ylrrBIdf1mmFclecIuRhEe/2m6Ecmyiqr/ac0xl/63O7yNsT0sCry',1,'2022-09-01',5,2022,'TCH-005','Active');
 
 -- Courses (6 required + none extra to respect row cap)
 INSERT INTO courses (course_id, course_code, course_title, description, credits, department_id, teacher_id, semester_id, max_enrollment, room_location) VALUES
