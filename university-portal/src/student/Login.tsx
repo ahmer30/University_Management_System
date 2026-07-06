@@ -91,7 +91,6 @@ export default function StudentLogin() {
                 name="id"
                 type="text"
                 autoComplete="username"
-                required
                 placeholder="e.g. 2021-CS-0042"
                 value={form.id}
                 onChange={handleChange}
@@ -126,7 +125,6 @@ export default function StudentLogin() {
                 name="password"
                 type={showPass ? "text" : "password"}
                 autoComplete="current-password"
-                required
                 placeholder="Enter your password"
                 value={form.password}
                 onChange={handleChange}

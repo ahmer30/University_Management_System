@@ -48,14 +48,14 @@ export default function Header({ onToggleSidebar, onOpenProfile, activeSection }
             borderRadius: "10px",
             border: "none", cursor: "pointer",
             background: "var(--neu-bg)",
-            boxShadow: "3px 3px 7px #bebebe, -3px -3px 7px #ffffff",
+            boxShadow: "9px 9px 16px #bebebe, -9px -9px 16px #ffffff",
             display: "flex", alignItems: "center", justifyContent: "center",
             color: "var(--neu-muted)",
             transition: "box-shadow 0.2s ease",
             flexShrink: 0,
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "inset 3px 3px 7px #bebebe, inset -3px -3px 7px #ffffff")}
-          onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "3px 3px 7px #bebebe, -3px -3px 7px #ffffff")}
+          onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff")}
+          onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "9px 9px 16px #bebebe, -9px -9px 16px #ffffff")}
         >
           <IconMenu size={19} />
         </button>
@@ -81,14 +81,14 @@ export default function Header({ onToggleSidebar, onOpenProfile, activeSection }
             borderRadius: "10px",
             border: "none", cursor: "pointer",
             background: "var(--neu-bg)",
-            boxShadow: "3px 3px 7px #bebebe, -3px -3px 7px #ffffff",
+            boxShadow: "9px 9px 16px #bebebe, -9px -9px 16px #ffffff",
             display: "flex", alignItems: "center", justifyContent: "center",
             color: "var(--neu-muted)",
             position: "relative",
             transition: "box-shadow 0.2s ease",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "inset 3px 3px 7px #bebebe, inset -3px -3px 7px #ffffff")}
-          onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "3px 3px 7px #bebebe, -3px -3px 7px #ffffff")}
+          onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff")}
+          onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "9px 9px 16px #bebebe, -9px -9px 16px #ffffff")}
         >
           <IconBell size={19} />
           {/* red dot */}
@@ -111,15 +111,15 @@ export default function Header({ onToggleSidebar, onOpenProfile, activeSection }
             borderRadius: "50%",
             border: "none", cursor: "pointer",
             background: "var(--neu-bg)",
-            boxShadow: "4px 4px 8px #bebebe, -4px -4px 8px #ffffff",
+            boxShadow: "9px 9px 16px #bebebe, -9px -9px 16px #ffffff",
             display: "flex", alignItems: "center", justifyContent: "center",
             fontWeight: 800, fontSize: "1rem",
             color: "var(--neu-accent)",
             transition: "box-shadow 0.2s ease",
             flexShrink: 0,
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "inset 4px 4px 8px #bebebe, inset -4px -4px 8px #ffffff")}
-          onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "4px 4px 8px #bebebe, -4px -4px 8px #ffffff")}
+          onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff")}
+          onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "9px 9px 16px #bebebe, -9px -9px 16px #ffffff")}
         >
           {p.name.charAt(0)}
         </button>

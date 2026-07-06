@@ -47,7 +47,7 @@ export default function Sidebar({ active, onSelect, collapsed }: SidebarProps) {
             width: "38px", height: "38px",
             borderRadius: "10px",
             background: "var(--neu-bg)",
-            boxShadow: "4px 4px 8px #bebebe, -4px -4px 8px #ffffff",
+            boxShadow: "9px 9px 16px #bebebe, -9px -9px 16px #ffffff",
             display: "flex", alignItems: "center", justifyContent: "center",
             flexShrink: 0,
           }}
@@ -86,7 +86,7 @@ export default function Sidebar({ active, onSelect, collapsed }: SidebarProps) {
                 color: isActive ? "var(--neu-accent)" : "var(--neu-muted)",
                 background: "var(--neu-bg)",
                 boxShadow: isActive
-                  ? "inset 4px 4px 8px #bebebe, inset -4px -4px 8px #ffffff"
+                  ? "inset 9px 9px 16px #bebebe, inset -9px -9px 16px #ffffff"
                   : "none",
                 transition: "box-shadow 0.2s ease, color 0.2s ease",
                 justifyContent: collapsed ? "center" : "flex-start",
@@ -96,7 +96,7 @@ export default function Sidebar({ active, onSelect, collapsed }: SidebarProps) {
               onMouseEnter={(e) => {
                 if (!isActive) {
                   (e.currentTarget as HTMLButtonElement).style.boxShadow =
-                    "3px 3px 7px #bebebe, -3px -3px 7px #ffffff";
+                    "9px 9px 16px #bebebe, -9px -9px 16px #ffffff";
                   (e.currentTarget as HTMLButtonElement).style.color = "var(--neu-text)";
                 }
               }}

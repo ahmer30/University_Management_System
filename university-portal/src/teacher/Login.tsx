@@ -1,16 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function TeacherLogin() {
-  const [showPass, setShowPass] = useState(false);
-  const [remember, setRemember] = useState(false);
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [showPass, setShowPass]   = useState(false);
+  const [remember, setRemember]   = useState(false);
+  const [form, setForm]           = useState({ email: "", password: "" });
+  const navigate                  = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // auth logic goes here
+    navigate("/teacher/dashboard");
   };
 
   return (
@@ -107,7 +109,6 @@ export default function TeacherLogin() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                required
                 placeholder="name@university.edu"
                 value={form.email}
                 onChange={handleChange}
@@ -142,7 +143,6 @@ export default function TeacherLogin() {
                 name="password"
                 type={showPass ? "text" : "password"}
                 autoComplete="current-password"
-                required
                 placeholder="Enter your password"
                 value={form.password}
                 onChange={handleChange}

@@ -370,7 +370,7 @@ INSERT INTO semesters (semester_id, label, start_date, end_date, is_current) VAL
 
 -- Students (10) — first row is the required Alex Johnson record
 INSERT INTO students (student_id, full_name, date_of_birth, gender, email, phone_number, address, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id, status) VALUES
-('2021-CS-0042','Alex Johnson','2003-04-12','Male','alex.johnson@ums.edu','+1-555-1001','221 Baker St','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2021-09-01',7,2021,'TCH-001','Active'),
+('2021-CS-0042','Alex Johnson','2003-03-15','Male','alex.johnson@ums.edu','+1-555-1001','221 Baker St','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2021-09-01',7,2021,'TCH-001','Active'),
 ('2021-CS-0011','Sara Ahmed','2003-01-22','Female','sara.ahmed@ums.edu','+1-555-1002','12 Elm St','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2021-09-01',7,2021,'TCH-001','Active'),
 ('2021-CS-0023','Bilal Khan','2002-11-05','Male','bilal.khan@ums.edu','+1-555-1003','34 Oak Ave','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2021-09-01',7,2021,'TCH-005','Active'),
 ('2022-CS-0007','Emma Wilson','2004-02-18','Female','emma.wilson@ums.edu','+1-555-1004','56 Pine Rd','$2b$12$8fN3qXz5m1c7Y0dR2eT6UeK9pL4sV7wA1bC3dE5fG7hJ9kM1nP3rS',1,'2022-09-01',5,2022,'TCH-003','Active'),
@@ -386,23 +386,40 @@ INSERT INTO courses (course_id, course_code, course_title, description, credits,
 (1,'CS-401','Data Structures & Algorithms','Core DSA concepts and problem solving',3,1,'TCH-001',1,40,'A-201'),
 (2,'MATH-202','Discrete Mathematics','Logic, sets, combinatorics, graph theory',3,2,'TCH-002',1,50,'B-101'),
 (3,'ENG-101','Technical Writing','Professional and technical communication',2,1,'TCH-003',1,45,'A-303'),
-(4,'PHY-301','Physics for Engineers','Mechanics and electromagnetism for engineers',4,3,'TCH-004',1,35,'C-105'),
+(4,'PHY-301','Physics for Engineers','Mechanics and electromagnetism for engineers',3,3,'TCH-004',1,35,'C-105'),
 (5,'CS-305','Operating Systems','Processes, memory, scheduling, file systems',3,1,'TCH-005',1,40,'A-210'),
 (6,'CS-410','Computer Networks','Network protocols, architecture, security',3,1,'TCH-006',1,40,'A-215');
 
--- Timetable entries (6, one per course)
+-- Timetable entries — multiple days per course to match frontend schedule display
 INSERT INTO timetables (course_id, day_of_week, start_time, end_time, room_hall) VALUES
-(1,'Monday','09:00:00','10:30:00','A-201'),
-(2,'Tuesday','11:00:00','12:30:00','B-101'),
-(3,'Wednesday','09:00:00','10:00:00','A-303'),
-(4,'Thursday','13:00:00','15:00:00','C-105'),
-(5,'Monday','14:00:00','15:30:00','A-210'),
-(6,'Friday','10:00:00','11:30:00','A-215');
+-- CS-401: Mon/Wed/Fri 9:00 AM
+(1,'Monday',   '09:00:00','10:30:00','A-201'),
+(1,'Wednesday','09:00:00','10:30:00','A-201'),
+(1,'Friday',   '09:00:00','10:30:00','A-201'),
+-- MATH-202: Tue/Thu 11:00 AM
+(2,'Tuesday',  '11:00:00','12:30:00','B-101'),
+(2,'Thursday', '11:00:00','12:30:00','B-101'),
+-- ENG-101: Mon/Wed 9:00 AM
+(3,'Monday',   '13:00:00','14:00:00','A-303'),
+(3,'Wednesday','13:00:00','14:00:00','A-303'),
+-- PHY-301: Tue/Thu 2:00 PM
+(4,'Tuesday',  '14:00:00','16:00:00','C-105'),
+(4,'Thursday', '14:00:00','16:00:00','C-105'),
+-- CS-305: Mon/Wed/Fri 11:00 AM
+(5,'Monday',   '11:00:00','12:30:00','A-210'),
+(5,'Wednesday','11:00:00','12:30:00','A-210'),
+(5,'Friday',   '11:00:00','12:30:00','A-210'),
+-- CS-410: Fri 2:00 PM
+(6,'Friday',   '14:00:00','15:30:00','A-215');
 
 -- Enrollments (14 — covers all 10 students across the 6 courses)
 INSERT INTO enrollments (student_id, course_id, enrollment_date, status, final_grade, grade_points) VALUES
 ('2021-CS-0042',1,'2026-09-01','Enrolled',NULL,NULL),
+('2021-CS-0042',2,'2026-09-01','Enrolled',NULL,NULL),
+('2021-CS-0042',3,'2026-09-01','Enrolled',NULL,NULL),
+('2021-CS-0042',4,'2026-09-01','Enrolled',NULL,NULL),
 ('2021-CS-0042',5,'2026-09-01','Enrolled',NULL,NULL),
+('2021-CS-0042',6,'2026-09-01','Enrolled',NULL,NULL),
 ('2021-CS-0011',1,'2026-09-01','Enrolled',NULL,NULL),
 ('2021-CS-0023',1,'2026-09-01','Completed','A',4.00),
 ('2022-CS-0007',6,'2026-09-01','Enrolled',NULL,NULL),
