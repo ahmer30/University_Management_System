@@ -31,6 +31,7 @@ async function getTeachers(req, res) {
       SELECT
         t.teacher_id,
         t.full_name,
+        t.email,
         t.designation,
         d.department_name
       FROM teachers t

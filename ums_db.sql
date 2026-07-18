@@ -251,235 +251,164 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- ============================================================================
 -- SEED DATA — Namal University Mianwali (Demo)
---
--- STUDENT LOGIN  →  Roll Number + Password
--- TEACHER LOGIN  →  @namal.edu.pk email + Password
---
--- Roll Number Format:
---   BSCS  → NUM-BSCS-2024-01  to  NUM-BSCS-2024-05   password: Namal@CS01 … CS05
---   BSM   → NUM-BSM-2024-01   to  NUM-BSM-2024-05    password: Namal@M01  … M05
---   BSEE  → NUM-BSEE-2024-01  to  NUM-BSEE-2024-05   password: Namal@EE01 … EE05
---   BSBBA → NUM-BSBBA-2024-01 to  NUM-BSBBA-2024-05  password: Namal@BBA01 … BBA05
---
--- Teacher emails/passwords:
---   ahmed.raza@namal.edu.pk       Ahmed@Namal123
---   sara.malik@namal.edu.pk       Sara@Namal123
---   usman.khan@namal.edu.pk       Usman@Namal123
---   fatima.zia@namal.edu.pk       Fatima@Namal123
---   bilal.chaudhry@namal.edu.pk   Bilal@Namal123
---   hina.baig@namal.edu.pk        Hina@Namal123
---   tariq.mehmood@namal.edu.pk    Tariq@Namal123
---   nadia.qureshi@namal.edu.pk    Nadia@Namal123
 -- ============================================================================
 
 -- Departments
-INSERT INTO departments (department_id, department_name) VALUES
-(1, 'Computer Science'),
-(2, 'Electrical Engineering'),
-(3, 'Mathematics'),
-(4, 'Business Administration');
+INSERT INTO departments (department_id, department_name) VALUES (1, 'Computer Science');
+INSERT INTO departments (department_id, department_name) VALUES (2, 'Electrical Engineering');
+INSERT INTO departments (department_id, department_name) VALUES (3, 'Mathematics');
+INSERT INTO departments (department_id, department_name) VALUES (4, 'Business Administration');
 
--- Teachers
-INSERT INTO teachers (teacher_id, full_name, email, password_hash, phone_number, department_id, designation, office_location, office_hours, date_joined, status) VALUES
-('TCH-001','Dr. Ahmed Raza',       'ahmed.raza@namal.edu.pk',      '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', '+92-300-1234567',1,'Dr.',                 'CS Block, Room 101','Mon/Wed 10-12 AM','2015-08-01','Active'),
-('TCH-002','Engr. Sara Malik',     'sara.malik@namal.edu.pk',      '$2b$12$8juwU9aijAK8sa43QNedueFvaf.L00VzZG81PBApEm7Pm8jijY2Xu', '+92-301-2345678',2,'Assistant Professor', 'EE Block, Room 202','Tue/Thu 2-4 PM',  '2017-01-15','Active'),
-('TCH-003','Dr. Usman Khan',       'usman.khan@namal.edu.pk',      '$2b$12$qw6r/EA07hK.//LN9JQGPe4BEUGzwT1Y6dV5TajkNa75RuSbpjfRW', '+92-302-3456789',3,'Dr.',                 'Math Block, Room 303','Tue/Thu 11-1 PM','2012-09-01','Active'),
-('TCH-004','Ms. Fatima Zia',       'fatima.zia@namal.edu.pk',      '$2b$12$G5espPe6PrSrMSQK7sbHZu0kblxL7Pz8zvxx.K3mMUe1BUuXQGbVO', '+92-303-4567890',4,'Lecturer',            'BBA Block, Room 404','Mon/Fri 9-11 AM', '2018-03-10','Active'),
-('TCH-005','Dr. Bilal Chaudhry',   'bilal.chaudhry@namal.edu.pk',  '$2b$12$wucRZ/.U6SapIIwXIazicOfNYkdL/aDhkkqUVox1oYpNDPYroAL.O', '+92-304-5678901',1,'Associate Professor', 'CS Block, Room 105','Mon/Wed/Fri 11 AM','2014-06-20','Active'),
-('TCH-006','Ms. Hina Baig',        'hina.baig@namal.edu.pk',       '$2b$12$MMo7Sbm8MeCHrO3Q4vdKxeMQYXTboE4f8gB4jGJLVLk.LnRS3qqGy', '+92-305-6789012',1,'Lecturer',            'CS Block, Room 106','Tue/Thu 9-11 AM', '2016-02-01','Active'),
-('TCH-007','Dr. Tariq Mehmood',    'tariq.mehmood@namal.edu.pk',   '$2b$12$RppDjAwjQNFUkxUNUlDgZO2AZU6AosgVITpd8mQEotBDHsYKZ1tyi', '+92-306-7890123',2,'Dr.',                 'EE Block, Room 207','Wed/Fri 2-4 PM',  '2013-07-01','Active'),
-('TCH-008','Dr. Nadia Qureshi',    'nadia.qureshi@namal.edu.pk',   '$2b$12$wTffrA63FoXhpbMn.5yhQOKMeVGreKOxxpy4eZqJs8OeJV5l4dhyu', '+92-307-8901234',4,'Dr.',                 'BBA Block, Room 408','Mon/Wed 1-3 PM',  '2019-09-01','Active');
+-- Teachers (20)
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-CS-01', 'Teacher CS 1', 'teacher.cs.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-CS-02', 'Teacher CS 2', 'teacher.cs.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-CS-03', 'Teacher CS 3', 'teacher.cs.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-CS-04', 'Teacher CS 4', 'teacher.cs.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-CS-05', 'Teacher CS 5', 'teacher.cs.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-EE-01', 'Teacher EE 1', 'teacher.ee.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-EE-02', 'Teacher EE 2', 'teacher.ee.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-EE-03', 'Teacher EE 3', 'teacher.ee.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-EE-04', 'Teacher EE 4', 'teacher.ee.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-EE-05', 'Teacher EE 5', 'teacher.ee.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-MATH-01', 'Teacher MATH 1', 'teacher.math.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-MATH-02', 'Teacher MATH 2', 'teacher.math.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-MATH-03', 'Teacher MATH 3', 'teacher.math.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-MATH-04', 'Teacher MATH 4', 'teacher.math.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-MATH-05', 'Teacher MATH 5', 'teacher.math.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-BBA-01', 'Teacher BBA 1', 'teacher.bba.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-BBA-02', 'Teacher BBA 2', 'teacher.bba.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-BBA-03', 'Teacher BBA 3', 'teacher.bba.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-BBA-04', 'Teacher BBA 4', 'teacher.bba.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, 'Dr.', '2020-01-01');
+INSERT INTO teachers (teacher_id, full_name, email, password_hash, department_id, designation, date_joined) VALUES ('TCH-BBA-05', 'Teacher BBA 5', 'teacher.bba.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, 'Dr.', '2020-01-01');
 
 -- HODs
-UPDATE departments SET hod_id='TCH-001' WHERE department_id=1;
-UPDATE departments SET hod_id='TCH-007' WHERE department_id=2;
-UPDATE departments SET hod_id='TCH-003' WHERE department_id=3;
-UPDATE departments SET hod_id='TCH-008' WHERE department_id=4;
+UPDATE departments SET hod_id='TCH-CS-01' WHERE department_id=1;
+UPDATE departments SET hod_id='TCH-EE-01' WHERE department_id=2;
+UPDATE departments SET hod_id='TCH-MATH-01' WHERE department_id=3;
+UPDATE departments SET hod_id='TCH-BBA-01' WHERE department_id=4;
 
 -- Programs
 INSERT INTO programs (program_id, program_name, department_id, duration_years, total_credits) VALUES
-(1,'BS Computer Science',        1,4,130),
-(2,'BS Electrical Engineering',  2,4,132),
-(3,'BS Mathematics',             3,4,120),
-(4,'BS Business Administration', 4,4,124);
+(1,'BS Computer Science', 1, 4, 130),
+(2,'BS Electrical Engineering', 2, 4, 132),
+(3,'BS Mathematics', 3, 4, 120),
+(4,'BS Business Administration', 4, 4, 124);
 
 -- Semesters
 INSERT INTO semesters (semester_id, label, start_date, end_date, is_current) VALUES
-(1,'Fall 2026',  '2026-09-01','2026-12-31',TRUE),
-(2,'Spring 2026','2026-02-01','2026-06-30',FALSE);
+(1,'Fall 2026', '2026-09-01', '2026-12-31', TRUE),
+(2,'Spring 2026', '2026-02-01', '2026-06-30', FALSE);
 
--- ── BSCS Students (5) ──────────────────────────────────────────────────────
-INSERT INTO students (student_id,full_name,date_of_birth,gender,email,phone_number,address,password_hash,program_id,enrollment_date,current_semester,batch_year,advisor_id,status) VALUES
-('NUM-BSCS-2024-01','Hamza Ali Qureshi',      '2005-03-12','Male',  'hamza.ali@namal.edu.pk',      '+92-311-1111001','House 12, Mianwali',             '$2b$12$zOemZxWRq1ZAf7JTk9Hk7ugj/TJBLFjAF0D3OCsqgNdIRh9s3i8F9i',1,'2024-09-01',2,2024,'TCH-001','Active'),
-('NUM-BSCS-2024-02','Ayesha Tariq',           '2005-07-22','Female','ayesha.tariq@namal.edu.pk',   '+92-311-1111002','House 45, Dera Ismail Khan',      '$2b$12$Zhq2LluAQuC4kT1rz2jQt.aZapKk1Cbo6NKdN8o121YecMRrIRO1C',1,'2024-09-01',2,2024,'TCH-001','Active'),
-('NUM-BSCS-2024-03','Umar Farooq Siddiqui',   '2005-01-05','Male',  'umar.farooq@namal.edu.pk',    '+92-311-1111003','House 78, Sargodha',              '$2b$12$sLxHvY2dwl/0.OZaiYf7gOm2sRepBkmq7co9k1myff2TJJitm6q4e',1,'2024-09-01',2,2024,'TCH-005','Active'),
-('NUM-BSCS-2024-04','Zainab Noor Hussain',    '2005-11-18','Female','zainab.noor@namal.edu.pk',    '+92-311-1111004','House 23, Lahore',                '$2b$12$2FwSVXBJt8njFZ8l6SisBOZI3Hdf6BK1L2ch1/2PCIdOAgasqLLq2',1,'2024-09-01',2,2024,'TCH-005','Active'),
-('NUM-BSCS-2024-05','Bilal Ahmed Khan',       '2005-05-30','Male',  'bilal.ahmed@namal.edu.pk',    '+92-311-1111005','House 56, Islamabad',             '$2b$12$ULd2Us8K1oaDlzPd6gKZsuAwWHYz97cXxv4y2r2ttu0ceDPHpTDUu',1,'2024-09-01',2,2024,'TCH-001','Active');
+-- Students (80)
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2023-01', 'Student CS 2023 1', '2005-01-01', 'Male', 'student.cs.2023.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2023-09-01', 7, 2023, 'TCH-CS-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2023-02', 'Student CS 2023 2', '2005-01-01', 'Male', 'student.cs.2023.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2023-09-01', 7, 2023, 'TCH-CS-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2023-03', 'Student CS 2023 3', '2005-01-01', 'Male', 'student.cs.2023.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2023-09-01', 7, 2023, 'TCH-CS-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2023-04', 'Student CS 2023 4', '2005-01-01', 'Male', 'student.cs.2023.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2023-09-01', 7, 2023, 'TCH-CS-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2023-05', 'Student CS 2023 5', '2005-01-01', 'Male', 'student.cs.2023.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2023-09-01', 7, 2023, 'TCH-CS-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2024-01', 'Student CS 2024 1', '2005-01-01', 'Male', 'student.cs.2024.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2024-09-01', 5, 2024, 'TCH-CS-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2024-02', 'Student CS 2024 2', '2005-01-01', 'Male', 'student.cs.2024.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2024-09-01', 5, 2024, 'TCH-CS-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2024-03', 'Student CS 2024 3', '2005-01-01', 'Male', 'student.cs.2024.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2024-09-01', 5, 2024, 'TCH-CS-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2024-04', 'Student CS 2024 4', '2005-01-01', 'Male', 'student.cs.2024.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2024-09-01', 5, 2024, 'TCH-CS-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2024-05', 'Student CS 2024 5', '2005-01-01', 'Male', 'student.cs.2024.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2024-09-01', 5, 2024, 'TCH-CS-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2025-01', 'Student CS 2025 1', '2005-01-01', 'Male', 'student.cs.2025.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2025-09-01', 3, 2025, 'TCH-CS-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2025-02', 'Student CS 2025 2', '2005-01-01', 'Male', 'student.cs.2025.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2025-09-01', 3, 2025, 'TCH-CS-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2025-03', 'Student CS 2025 3', '2005-01-01', 'Male', 'student.cs.2025.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2025-09-01', 3, 2025, 'TCH-CS-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2025-04', 'Student CS 2025 4', '2005-01-01', 'Male', 'student.cs.2025.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2025-09-01', 3, 2025, 'TCH-CS-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2025-05', 'Student CS 2025 5', '2005-01-01', 'Male', 'student.cs.2025.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2025-09-01', 3, 2025, 'TCH-CS-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2026-01', 'Student CS 2026 1', '2005-01-01', 'Male', 'student.cs.2026.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2026-09-01', 1, 2026, 'TCH-CS-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2026-02', 'Student CS 2026 2', '2005-01-01', 'Male', 'student.cs.2026.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2026-09-01', 1, 2026, 'TCH-CS-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2026-03', 'Student CS 2026 3', '2005-01-01', 'Male', 'student.cs.2026.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2026-09-01', 1, 2026, 'TCH-CS-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2026-04', 'Student CS 2026 4', '2005-01-01', 'Male', 'student.cs.2026.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2026-09-01', 1, 2026, 'TCH-CS-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-CS-2026-05', 'Student CS 2026 5', '2005-01-01', 'Male', 'student.cs.2026.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 1, '2026-09-01', 1, 2026, 'TCH-CS-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2023-01', 'Student EE 2023 1', '2005-01-01', 'Male', 'student.ee.2023.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2023-09-01', 7, 2023, 'TCH-EE-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2023-02', 'Student EE 2023 2', '2005-01-01', 'Male', 'student.ee.2023.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2023-09-01', 7, 2023, 'TCH-EE-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2023-03', 'Student EE 2023 3', '2005-01-01', 'Male', 'student.ee.2023.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2023-09-01', 7, 2023, 'TCH-EE-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2023-04', 'Student EE 2023 4', '2005-01-01', 'Male', 'student.ee.2023.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2023-09-01', 7, 2023, 'TCH-EE-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2023-05', 'Student EE 2023 5', '2005-01-01', 'Male', 'student.ee.2023.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2023-09-01', 7, 2023, 'TCH-EE-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2024-01', 'Student EE 2024 1', '2005-01-01', 'Male', 'student.ee.2024.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2024-09-01', 5, 2024, 'TCH-EE-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2024-02', 'Student EE 2024 2', '2005-01-01', 'Male', 'student.ee.2024.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2024-09-01', 5, 2024, 'TCH-EE-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2024-03', 'Student EE 2024 3', '2005-01-01', 'Male', 'student.ee.2024.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2024-09-01', 5, 2024, 'TCH-EE-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2024-04', 'Student EE 2024 4', '2005-01-01', 'Male', 'student.ee.2024.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2024-09-01', 5, 2024, 'TCH-EE-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2024-05', 'Student EE 2024 5', '2005-01-01', 'Male', 'student.ee.2024.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2024-09-01', 5, 2024, 'TCH-EE-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2025-01', 'Student EE 2025 1', '2005-01-01', 'Male', 'student.ee.2025.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2025-09-01', 3, 2025, 'TCH-EE-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2025-02', 'Student EE 2025 2', '2005-01-01', 'Male', 'student.ee.2025.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2025-09-01', 3, 2025, 'TCH-EE-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2025-03', 'Student EE 2025 3', '2005-01-01', 'Male', 'student.ee.2025.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2025-09-01', 3, 2025, 'TCH-EE-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2025-04', 'Student EE 2025 4', '2005-01-01', 'Male', 'student.ee.2025.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2025-09-01', 3, 2025, 'TCH-EE-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2025-05', 'Student EE 2025 5', '2005-01-01', 'Male', 'student.ee.2025.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2025-09-01', 3, 2025, 'TCH-EE-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2026-01', 'Student EE 2026 1', '2005-01-01', 'Male', 'student.ee.2026.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2026-09-01', 1, 2026, 'TCH-EE-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2026-02', 'Student EE 2026 2', '2005-01-01', 'Male', 'student.ee.2026.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2026-09-01', 1, 2026, 'TCH-EE-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2026-03', 'Student EE 2026 3', '2005-01-01', 'Male', 'student.ee.2026.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2026-09-01', 1, 2026, 'TCH-EE-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2026-04', 'Student EE 2026 4', '2005-01-01', 'Male', 'student.ee.2026.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2026-09-01', 1, 2026, 'TCH-EE-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-EE-2026-05', 'Student EE 2026 5', '2005-01-01', 'Male', 'student.ee.2026.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 2, '2026-09-01', 1, 2026, 'TCH-EE-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2023-01', 'Student MATH 2023 1', '2005-01-01', 'Male', 'student.math.2023.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2023-09-01', 7, 2023, 'TCH-MATH-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2023-02', 'Student MATH 2023 2', '2005-01-01', 'Male', 'student.math.2023.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2023-09-01', 7, 2023, 'TCH-MATH-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2023-03', 'Student MATH 2023 3', '2005-01-01', 'Male', 'student.math.2023.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2023-09-01', 7, 2023, 'TCH-MATH-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2023-04', 'Student MATH 2023 4', '2005-01-01', 'Male', 'student.math.2023.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2023-09-01', 7, 2023, 'TCH-MATH-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2023-05', 'Student MATH 2023 5', '2005-01-01', 'Male', 'student.math.2023.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2023-09-01', 7, 2023, 'TCH-MATH-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2024-01', 'Student MATH 2024 1', '2005-01-01', 'Male', 'student.math.2024.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2024-09-01', 5, 2024, 'TCH-MATH-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2024-02', 'Student MATH 2024 2', '2005-01-01', 'Male', 'student.math.2024.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2024-09-01', 5, 2024, 'TCH-MATH-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2024-03', 'Student MATH 2024 3', '2005-01-01', 'Male', 'student.math.2024.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2024-09-01', 5, 2024, 'TCH-MATH-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2024-04', 'Student MATH 2024 4', '2005-01-01', 'Male', 'student.math.2024.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2024-09-01', 5, 2024, 'TCH-MATH-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2024-05', 'Student MATH 2024 5', '2005-01-01', 'Male', 'student.math.2024.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2024-09-01', 5, 2024, 'TCH-MATH-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2025-01', 'Student MATH 2025 1', '2005-01-01', 'Male', 'student.math.2025.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2025-09-01', 3, 2025, 'TCH-MATH-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2025-02', 'Student MATH 2025 2', '2005-01-01', 'Male', 'student.math.2025.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2025-09-01', 3, 2025, 'TCH-MATH-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2025-03', 'Student MATH 2025 3', '2005-01-01', 'Male', 'student.math.2025.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2025-09-01', 3, 2025, 'TCH-MATH-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2025-04', 'Student MATH 2025 4', '2005-01-01', 'Male', 'student.math.2025.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2025-09-01', 3, 2025, 'TCH-MATH-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2025-05', 'Student MATH 2025 5', '2005-01-01', 'Male', 'student.math.2025.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2025-09-01', 3, 2025, 'TCH-MATH-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2026-01', 'Student MATH 2026 1', '2005-01-01', 'Male', 'student.math.2026.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2026-09-01', 1, 2026, 'TCH-MATH-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2026-02', 'Student MATH 2026 2', '2005-01-01', 'Male', 'student.math.2026.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2026-09-01', 1, 2026, 'TCH-MATH-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2026-03', 'Student MATH 2026 3', '2005-01-01', 'Male', 'student.math.2026.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2026-09-01', 1, 2026, 'TCH-MATH-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2026-04', 'Student MATH 2026 4', '2005-01-01', 'Male', 'student.math.2026.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2026-09-01', 1, 2026, 'TCH-MATH-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-MATH-2026-05', 'Student MATH 2026 5', '2005-01-01', 'Male', 'student.math.2026.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 3, '2026-09-01', 1, 2026, 'TCH-MATH-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2023-01', 'Student BBA 2023 1', '2005-01-01', 'Male', 'student.bba.2023.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2023-09-01', 7, 2023, 'TCH-BBA-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2023-02', 'Student BBA 2023 2', '2005-01-01', 'Male', 'student.bba.2023.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2023-09-01', 7, 2023, 'TCH-BBA-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2023-03', 'Student BBA 2023 3', '2005-01-01', 'Male', 'student.bba.2023.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2023-09-01', 7, 2023, 'TCH-BBA-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2023-04', 'Student BBA 2023 4', '2005-01-01', 'Male', 'student.bba.2023.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2023-09-01', 7, 2023, 'TCH-BBA-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2023-05', 'Student BBA 2023 5', '2005-01-01', 'Male', 'student.bba.2023.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2023-09-01', 7, 2023, 'TCH-BBA-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2024-01', 'Student BBA 2024 1', '2005-01-01', 'Male', 'student.bba.2024.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2024-09-01', 5, 2024, 'TCH-BBA-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2024-02', 'Student BBA 2024 2', '2005-01-01', 'Male', 'student.bba.2024.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2024-09-01', 5, 2024, 'TCH-BBA-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2024-03', 'Student BBA 2024 3', '2005-01-01', 'Male', 'student.bba.2024.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2024-09-01', 5, 2024, 'TCH-BBA-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2024-04', 'Student BBA 2024 4', '2005-01-01', 'Male', 'student.bba.2024.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2024-09-01', 5, 2024, 'TCH-BBA-04');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2024-05', 'Student BBA 2024 5', '2005-01-01', 'Male', 'student.bba.2024.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2024-09-01', 5, 2024, 'TCH-BBA-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2025-01', 'Student BBA 2025 1', '2005-01-01', 'Male', 'student.bba.2025.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2025-09-01', 3, 2025, 'TCH-BBA-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2025-02', 'Student BBA 2025 2', '2005-01-01', 'Male', 'student.bba.2025.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2025-09-01', 3, 2025, 'TCH-BBA-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2025-03', 'Student BBA 2025 3', '2005-01-01', 'Male', 'student.bba.2025.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2025-09-01', 3, 2025, 'TCH-BBA-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2025-04', 'Student BBA 2025 4', '2005-01-01', 'Male', 'student.bba.2025.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2025-09-01', 3, 2025, 'TCH-BBA-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2025-05', 'Student BBA 2025 5', '2005-01-01', 'Male', 'student.bba.2025.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2025-09-01', 3, 2025, 'TCH-BBA-05');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2026-01', 'Student BBA 2026 1', '2005-01-01', 'Male', 'student.bba.2026.1@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2026-09-01', 1, 2026, 'TCH-BBA-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2026-02', 'Student BBA 2026 2', '2005-01-01', 'Male', 'student.bba.2026.2@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2026-09-01', 1, 2026, 'TCH-BBA-01');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2026-03', 'Student BBA 2026 3', '2005-01-01', 'Male', 'student.bba.2026.3@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2026-09-01', 1, 2026, 'TCH-BBA-02');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2026-04', 'Student BBA 2026 4', '2005-01-01', 'Male', 'student.bba.2026.4@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2026-09-01', 1, 2026, 'TCH-BBA-03');
+INSERT INTO students (student_id, full_name, date_of_birth, gender, email, password_hash, program_id, enrollment_date, current_semester, batch_year, advisor_id) VALUES ('NUM-BBA-2026-05', 'Student BBA 2026 5', '2005-01-01', 'Male', 'student.bba.2026.5@namal.edu.pk', '$2b$12$Gls8ALqJO67sHN3Sxw5eJO/CeWeAd0Lxgv6z4/36cDGnqSpIdc7Ri', 4, '2026-09-01', 1, 2026, 'TCH-BBA-05');
 
--- ── BSM Students (5) ───────────────────────────────────────────────────────
-INSERT INTO students (student_id,full_name,date_of_birth,gender,email,phone_number,address,password_hash,program_id,enrollment_date,current_semester,batch_year,advisor_id,status) VALUES
-('NUM-BSM-2024-01','Fatima Zahoor',           '2005-02-14','Female','fatima.zahoor@namal.edu.pk',  '+92-312-2221001','House 33, Rawalpindi',            '$2b$12$kTXTzvc6bgZIQ.5vJc59YO.JGrZQsaKRgYuUX0wLT4YXTSpd5gXIq',3,'2024-09-01',2,2024,'TCH-003','Active'),
-('NUM-BSM-2024-02','Saad Rehman',             '2005-09-08','Male',  'saad.rehman@namal.edu.pk',    '+92-312-2221002','House 67, Faisalabad',            '$2b$12$WtB1nY6Rgbsp.26xbold2uyoTE1WjToy2wIO63ZI1tM.b5N7Exadm',3,'2024-09-01',2,2024,'TCH-003','Active'),
-('NUM-BSM-2024-03','Maryam Khalid',           '2005-06-20','Female','maryam.khalid@namal.edu.pk',  '+92-312-2221003','House 89, Multan',                '$2b$12$RltI5k7rI2ML97kj6kL1nOJFrZuxa9zNZmDHh5aAPBqzIsQLJ3q0e',3,'2024-09-01',2,2024,'TCH-003','Active'),
-('NUM-BSM-2024-04','Hassan Mehmood',          '2005-04-11','Male',  'hassan.mehmood@namal.edu.pk', '+92-312-2221004','House 12, Peshawar',              '$2b$12$m.4ai6GPSLRJsNoCO5z2geGdJp03oyCl086JfXQSqvMW2AxeHpSjq',3,'2024-09-01',2,2024,'TCH-003','Active'),
-('NUM-BSM-2024-05','Sana Iqbal',              '2005-12-03','Female','sana.iqbal@namal.edu.pk',     '+92-312-2221005','House 44, Gujranwala',            '$2b$12$YeZ2B30CjtyaoLeSo6xUMuIwqGtfFkRP3wtThXxurd.SPZJLtZA1y',3,'2024-09-01',2,2024,'TCH-003','Active');
-
--- ── BSEE Students (5) ──────────────────────────────────────────────────────
-INSERT INTO students (student_id,full_name,date_of_birth,gender,email,phone_number,address,password_hash,program_id,enrollment_date,current_semester,batch_year,advisor_id,status) VALUES
-('NUM-BSEE-2024-01','Ali Hassan Mirza',       '2005-08-15','Male',  'ali.hassan@namal.edu.pk',     '+92-313-3331001','House 77, Jhang',                 '$2b$12$tXqoQf7CwXwhbx10rkSrUOVT3QgkeS8bQ8TqQLWm.27j2jveru.em',2,'2024-09-01',2,2024,'TCH-007','Active'),
-('NUM-BSEE-2024-02','Nimra Shakeel',          '2005-03-27','Female','nimra.shakeel@namal.edu.pk',  '+92-313-3331002','House 21, Chakwal',                '$2b$12$nJYJBio64dAUO7naIx.FZ.NlmNFCHihM6HPLKYzwBcFkilt5wWpry',2,'2024-09-01',2,2024,'TCH-007','Active'),
-('NUM-BSEE-2024-03','Shahzaib Anwar',         '2005-10-09','Male',  'shahzaib.anwar@namal.edu.pk', '+92-313-3331003','House 55, Khushab',                '$2b$12$OVeJdGQlJAGjsbY5nFMOIuKbSzWJqQIX0ZB.Zb5B0WL6LayqlJxye',2,'2024-09-01',2,2024,'TCH-002','Active'),
-('NUM-BSEE-2024-04','Maham Farhan',           '2005-07-16','Female','maham.farhan@namal.edu.pk',   '+92-313-3331004','House 38, Bhakkar',                '$2b$12$vXVhaMeDTnAloy.BgweswelS2gTQMuJn4JiR5muUa0MfbMBawDx0W',2,'2024-09-01',2,2024,'TCH-002','Active'),
-('NUM-BSEE-2024-05','Omer Sajjad',            '2005-01-22','Male',  'omer.sajjad@namal.edu.pk',    '+92-313-3331005','House 90, Mianwali',               '$2b$12$w6GLISzURLrScp0e9gTLsuZxlxs.GOPnIHVjzcHfdlvqerO0Lvj1y',2,'2024-09-01',2,2024,'TCH-007','Active');
-
--- ── BSBBA Students (5) ─────────────────────────────────────────────────────
-INSERT INTO students (student_id,full_name,date_of_birth,gender,email,phone_number,address,password_hash,program_id,enrollment_date,current_semester,batch_year,advisor_id,status) VALUES
-('NUM-BSBBA-2024-01','Hira Awan',             '2005-05-10','Female','hira.awan@namal.edu.pk',      '+92-314-4441001','House 14, Attock',                '$2b$12$AFAz5DDIkqPUjnyOhuhzt.x2VcTtDsKR66N/Fof7zjC/Ux.VqVfoa',4,'2024-09-01',2,2024,'TCH-008','Active'),
-('NUM-BSBBA-2024-02','Kamran Bashir',         '2005-02-28','Male',  'kamran.bashir@namal.edu.pk',  '+92-314-4441002','House 66, Mianwali',               '$2b$12$p0tbukhSfWAzeW7jE35Lze/km0Aj1wKJIMz.1kex3b93sOrZ197wy',4,'2024-09-01',2,2024,'TCH-008','Active'),
-('NUM-BSBBA-2024-03','Rabia Naz',             '2005-09-14','Female','rabia.naz@namal.edu.pk',      '+92-314-4441003','House 30, Talagang',               '$2b$12$SW89SdNGjQzjtMomPWVFW.daWyZtuUtZHeVXwN2HV8hr3rUu43X1G',4,'2024-09-01',2,2024,'TCH-004','Active'),
-('NUM-BSBBA-2024-04','Imran Zafar',           '2005-11-07','Male',  'imran.zafar@namal.edu.pk',    '+92-314-4441004','House 52, Chakwal',                '$2b$12$0jLCNMPa41oHLjbd/RJ/5eOngOJZSP00jTh/22WKit/78ILOKGnPC',4,'2024-09-01',2,2024,'TCH-004','Active'),
-('NUM-BSBBA-2024-05','Sadia Parveen',         '2005-06-25','Female','sadia.parveen@namal.edu.pk',  '+92-314-4441005','House 11, Lahore',                 '$2b$12$jeWLAN96s2jbT05VTGhz1.uV1JmBUvXT5nkxdXqEjYZpDpoqEoywm',4,'2024-09-01',2,2024,'TCH-008','Active');
-
--- Courses (2 per department = 8 total)
-INSERT INTO courses (course_id,course_code,course_title,description,credits,department_id,teacher_id,semester_id,max_enrollment,room_location) VALUES
-(1, 'CS-201', 'Programming Fundamentals',      'Intro to programming using C++',              3,1,'TCH-006',1,40,'CS-101'),
-(2, 'CS-301', 'Data Structures & Algorithms',  'Arrays, lists, trees, graphs, sorting',       3,1,'TCH-001',1,40,'CS-102'),
-(3, 'EE-201', 'Circuit Analysis',              'Kirchhoff laws, network theorems',            3,2,'TCH-002',1,35,'EE-101'),
-(4, 'EE-301', 'Digital Logic Design',          'Boolean algebra, gates, flip-flops',          3,2,'TCH-007',1,35,'EE-102'),
-(5, 'MATH-201','Calculus I',                   'Limits, derivatives, integrals',              3,3,'TCH-003',1,50,'MATH-101'),
-(6, 'MATH-301','Linear Algebra',               'Matrices, determinants, vector spaces',       3,3,'TCH-003',1,50,'MATH-102'),
-(7, 'BBA-201', 'Principles of Management',     'Planning, organizing, leading, controlling',  3,4,'TCH-004',1,45,'BBA-101'),
-(8, 'BBA-301', 'Financial Accounting',         'Ledger, trial balance, financial statements', 3,4,'TCH-008',1,45,'BBA-102');
-
--- Timetable
-INSERT INTO timetables (course_id,day_of_week,start_time,end_time,room_hall) VALUES
-(1,'Monday',   '08:00:00','09:30:00','CS-101'),
-(1,'Wednesday','08:00:00','09:30:00','CS-101'),
-(1,'Friday',   '08:00:00','09:30:00','CS-101'),
-(2,'Monday',   '10:00:00','11:30:00','CS-102'),
-(2,'Wednesday','10:00:00','11:30:00','CS-102'),
-(2,'Friday',   '10:00:00','11:30:00','CS-102'),
-(3,'Tuesday',  '08:00:00','09:30:00','EE-101'),
-(3,'Thursday', '08:00:00','09:30:00','EE-101'),
-(4,'Tuesday',  '10:00:00','11:30:00','EE-102'),
-(4,'Thursday', '10:00:00','11:30:00','EE-102'),
-(5,'Monday',   '08:00:00','09:30:00','MATH-101'),
-(5,'Wednesday','08:00:00','09:30:00','MATH-101'),
-(6,'Tuesday',  '08:00:00','09:30:00','MATH-102'),
-(6,'Thursday', '08:00:00','09:30:00','MATH-102'),
-(7,'Monday',   '12:00:00','13:30:00','BBA-101'),
-(7,'Wednesday','12:00:00','13:30:00','BBA-101'),
-(8,'Tuesday',  '12:00:00','13:30:00','BBA-102'),
-(8,'Thursday', '12:00:00','13:30:00','BBA-102');
-
--- Enrollments — each student enrolled in their dept courses
-INSERT INTO enrollments (student_id,course_id,enrollment_date,status) VALUES
--- BSCS students → CS courses
-('NUM-BSCS-2024-01',1,'2024-09-01','Enrolled'),
-('NUM-BSCS-2024-01',2,'2024-09-01','Enrolled'),
-('NUM-BSCS-2024-02',1,'2024-09-01','Enrolled'),
-('NUM-BSCS-2024-02',2,'2024-09-01','Enrolled'),
-('NUM-BSCS-2024-03',1,'2024-09-01','Enrolled'),
-('NUM-BSCS-2024-03',2,'2024-09-01','Enrolled'),
-('NUM-BSCS-2024-04',1,'2024-09-01','Enrolled'),
-('NUM-BSCS-2024-04',2,'2024-09-01','Enrolled'),
-('NUM-BSCS-2024-05',1,'2024-09-01','Enrolled'),
-('NUM-BSCS-2024-05',2,'2024-09-01','Enrolled'),
--- BSEE students → EE courses
-('NUM-BSEE-2024-01',3,'2024-09-01','Enrolled'),
-('NUM-BSEE-2024-01',4,'2024-09-01','Enrolled'),
-('NUM-BSEE-2024-02',3,'2024-09-01','Enrolled'),
-('NUM-BSEE-2024-02',4,'2024-09-01','Enrolled'),
-('NUM-BSEE-2024-03',3,'2024-09-01','Enrolled'),
-('NUM-BSEE-2024-03',4,'2024-09-01','Enrolled'),
-('NUM-BSEE-2024-04',3,'2024-09-01','Enrolled'),
-('NUM-BSEE-2024-04',4,'2024-09-01','Enrolled'),
-('NUM-BSEE-2024-05',3,'2024-09-01','Enrolled'),
-('NUM-BSEE-2024-05',4,'2024-09-01','Enrolled'),
--- BSM students → Math courses
-('NUM-BSM-2024-01',5,'2024-09-01','Enrolled'),
-('NUM-BSM-2024-01',6,'2024-09-01','Enrolled'),
-('NUM-BSM-2024-02',5,'2024-09-01','Enrolled'),
-('NUM-BSM-2024-02',6,'2024-09-01','Enrolled'),
-('NUM-BSM-2024-03',5,'2024-09-01','Enrolled'),
-('NUM-BSM-2024-03',6,'2024-09-01','Enrolled'),
-('NUM-BSM-2024-04',5,'2024-09-01','Enrolled'),
-('NUM-BSM-2024-04',6,'2024-09-01','Enrolled'),
-('NUM-BSM-2024-05',5,'2024-09-01','Enrolled'),
-('NUM-BSM-2024-05',6,'2024-09-01','Enrolled'),
--- BSBBA students → BBA courses
-('NUM-BSBBA-2024-01',7,'2024-09-01','Enrolled'),
-('NUM-BSBBA-2024-01',8,'2024-09-01','Enrolled'),
-('NUM-BSBBA-2024-02',7,'2024-09-01','Enrolled'),
-('NUM-BSBBA-2024-02',8,'2024-09-01','Enrolled'),
-('NUM-BSBBA-2024-03',7,'2024-09-01','Enrolled'),
-('NUM-BSBBA-2024-03',8,'2024-09-01','Enrolled'),
-('NUM-BSBBA-2024-04',7,'2024-09-01','Enrolled'),
-('NUM-BSBBA-2024-04',8,'2024-09-01','Enrolled'),
-('NUM-BSBBA-2024-05',7,'2024-09-01','Enrolled'),
-('NUM-BSBBA-2024-05',8,'2024-09-01','Enrolled');
-
--- Assessments (2 per course)
-INSERT INTO assessments (course_id,title,type,total_marks,weightage,due_date) VALUES
-(1,'Quiz 1: Variables & Loops',    'Quiz',      20, 5, '2026-10-05'),
-(1,'Assignment 1: Functions',      'Assignment',50,10, '2026-10-20'),
-(2,'Quiz 1: Arrays & Pointers',    'Quiz',      20, 5, '2026-10-07'),
-(2,'Midterm Exam',                 'Exam',     100,30, '2026-11-01'),
-(3,'Lab 1: Circuit Measurements',  'Lab',       30,10, '2026-10-08'),
-(3,'Midterm Exam',                 'Exam',     100,30, '2026-11-03'),
-(4,'Quiz 1: Boolean Algebra',      'Quiz',      20, 5, '2026-10-09'),
-(4,'Assignment 1: Gate Design',    'Assignment', 50,10,'2026-10-25'),
-(5,'Quiz 1: Limits',               'Quiz',      20, 5, '2026-10-06'),
-(5,'Midterm Exam',                 'Exam',     100,30, '2026-11-02'),
-(6,'Assignment 1: Matrix Ops',     'Assignment', 50,10,'2026-10-22'),
-(6,'Midterm Exam',                 'Exam',     100,30, '2026-11-04'),
-(7,'Quiz 1: Management Basics',    'Quiz',      20, 5, '2026-10-05'),
-(7,'Assignment 1: Case Study',     'Assignment', 50,10,'2026-10-21'),
-(8,'Quiz 1: Journal Entries',      'Quiz',      20, 5, '2026-10-06'),
-(8,'Midterm Exam',                 'Exam',     100,30, '2026-11-02');
-
--- Sample assessment results for BSCS students in CS-201 Quiz 1 (assessment_id=1)
-INSERT INTO assessment_results (assessment_id,student_id,marks_obtained,submission_date,status,feedback) VALUES
-(1,'NUM-BSCS-2024-01',17,'2026-10-05 10:00:00','Graded','Good understanding of loops'),
-(1,'NUM-BSCS-2024-02',15,'2026-10-05 10:05:00','Graded','Review variable scoping'),
-(1,'NUM-BSCS-2024-03',18,'2026-10-05 10:02:00','Graded','Excellent!'),
-(1,'NUM-BSCS-2024-04',14,'2026-10-05 10:08:00','Graded','Practice more examples'),
-(1,'NUM-BSCS-2024-05',19,'2026-10-05 10:01:00','Graded','Outstanding work');
-
--- Attendance samples
-INSERT INTO attendance (student_id,course_id,class_date,status,marked_by) VALUES
-('NUM-BSCS-2024-01',1,'2026-09-08','Present','TCH-006'),
-('NUM-BSCS-2024-02',1,'2026-09-08','Present','TCH-006'),
-('NUM-BSCS-2024-03',1,'2026-09-08','Absent', 'TCH-006'),
-('NUM-BSCS-2024-04',1,'2026-09-08','Present','TCH-006'),
-('NUM-BSCS-2024-05',1,'2026-09-08','Late',   'TCH-006'),
-('NUM-BSEE-2024-01',3,'2026-09-09','Present','TCH-002'),
-('NUM-BSEE-2024-02',3,'2026-09-09','Present','TCH-002'),
-('NUM-BSM-2024-01', 5,'2026-09-08','Present','TCH-003'),
-('NUM-BSM-2024-02', 5,'2026-09-08','Absent', 'TCH-003');
-
--- Transcripts (semester 2 results)
-INSERT INTO transcripts (student_id,semester_id,semester_gpa,cgpa,total_credits) VALUES
-('NUM-BSCS-2024-01',2,3.60,3.60,18),
-('NUM-BSCS-2024-02',2,3.40,3.40,18),
-('NUM-BSCS-2024-03',2,3.80,3.80,18),
-('NUM-BSEE-2024-01',2,3.50,3.50,18),
-('NUM-BSM-2024-01', 2,3.70,3.70,18),
-('NUM-BSBBA-2024-01',2,3.20,3.20,18);
-
--- Fee records
-INSERT INTO fees (student_id,semester_id,total_fee_amount,amount_paid,payment_date,status,scholarship_amount) VALUES
-('NUM-BSCS-2024-01',1,45000.00,45000.00,'2024-09-03','Paid',    5000.00),
-('NUM-BSCS-2024-02',1,45000.00,22500.00,'2024-09-10','Partial',    0.00),
-('NUM-BSCS-2024-03',1,45000.00,45000.00,'2024-09-02','Paid',       0.00),
-('NUM-BSEE-2024-01',1,48000.00,48000.00,'2024-09-01','Paid',    6000.00),
-('NUM-BSM-2024-01', 1,42000.00,    0.00,NULL,         'Unpaid',    0.00),
-('NUM-BSBBA-2024-01',1,46000.00,46000.00,'2024-09-05','Paid',   4000.00);
-
--- Announcements
-INSERT INTO announcements (course_id,teacher_id,title,body,is_pinned) VALUES
-(1,'TCH-006','Welcome to CS-201','Course outline has been shared. Attendance is mandatory.',TRUE),
-(2,'TCH-001','Midterm Schedule','Midterm exam will be held on Nov 1 in CS-102. Syllabus: Chapters 1-5.',TRUE),
-(3,'TCH-002','Lab Safety','Please read the lab safety manual before Lab 1.',TRUE),
-(5,'TCH-003','Quiz 1 Notice','Quiz 1 will cover limits and continuity. No notes allowed.',FALSE),
-(7,'TCH-004','Case Study Groups','Form groups of 3 for Assignment 1 case study.',FALSE);
+-- Courses (30)
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (1, 'CR-001', 'Calculus I', 3, 1, 'TCH-CS-05', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (2, 'CR-002', 'Calculus II', 3, 2, 'TCH-EE-01', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (3, 'CR-003', 'Calculus III', 3, 3, 'TCH-MATH-02', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (4, 'CR-004', 'Linear Algebra', 3, 4, 'TCH-BBA-04', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (5, 'CR-005', 'Differential Equations', 3, 1, 'TCH-CS-02', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (6, 'CR-006', 'Programming Fundamentals', 3, 2, 'TCH-EE-05', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (7, 'CR-007', 'Object Oriented Programming', 3, 3, 'TCH-MATH-03', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (8, 'CR-008', 'Data Structures', 3, 4, 'TCH-BBA-03', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (9, 'CR-009', 'Algorithms', 3, 1, 'TCH-CS-05', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (10, 'CR-010', 'Operating Systems', 3, 2, 'TCH-EE-05', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (11, 'CR-011', 'Database Systems', 3, 3, 'TCH-MATH-01', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (12, 'CR-012', 'Software Engineering', 3, 4, 'TCH-BBA-01', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (13, 'CR-013', 'Computer Networks', 3, 1, 'TCH-CS-03', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (14, 'CR-014', 'Artificial Intelligence', 3, 2, 'TCH-EE-05', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (15, 'CR-015', 'Machine Learning', 3, 3, 'TCH-MATH-02', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (16, 'CR-016', 'Electric Circuits', 3, 4, 'TCH-BBA-02', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (17, 'CR-017', 'Digital Logic Design', 3, 1, 'TCH-CS-01', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (18, 'CR-018', 'Signals and Systems', 3, 2, 'TCH-EE-05', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (19, 'CR-019', 'Microprocessors', 3, 3, 'TCH-MATH-04', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (20, 'CR-020', 'Control Systems', 3, 4, 'TCH-BBA-04', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (21, 'CR-021', 'Principles of Management', 3, 1, 'TCH-CS-04', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (22, 'CR-022', 'Marketing Management', 3, 2, 'TCH-EE-05', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (23, 'CR-023', 'Financial Accounting', 3, 3, 'TCH-MATH-01', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (24, 'CR-024', 'Organizational Behavior', 3, 4, 'TCH-BBA-03', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (25, 'CR-025', 'Human Resource Management', 3, 1, 'TCH-CS-03', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (26, 'CR-026', 'Discrete Mathematics', 3, 2, 'TCH-EE-05', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (27, 'CR-027', 'Probability and Statistics', 3, 3, 'TCH-MATH-01', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (28, 'CR-028', 'Physics I', 3, 4, 'TCH-BBA-05', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (29, 'CR-029', 'Physics II', 3, 1, 'TCH-CS-01', 1);
+INSERT INTO courses (course_id, course_code, course_title, credits, department_id, teacher_id, semester_id) VALUES (30, 'CR-030', 'Communication Skills', 3, 2, 'TCH-EE-02', 1);
