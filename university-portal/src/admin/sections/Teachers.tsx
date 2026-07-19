@@ -1,41 +1,65 @@
 import { useState } from "react";
-import { SH_OUT, SH_IN_SM, SH_BTN, SectionHeader, TblHead, TblRow, C, StatusBadge, FieldLabel, selStyle } from "../components/AdminUI";
+import { addTeacher, deleteTeacher } from "../../api";
+import { SH_OUT, SH_IN_SM, SectionHeader, TblHead, TblRow, C, StatusBadge, FieldLabel, selStyle } from "../components/AdminUI";
 
-export default function TeachersSection({ teachers, departments, onSave }: { teachers: any[], departments: any[], onSave: (data: any[]) => void }) {
-  const [showAdd, setShowAdd] = useState(false);
+export default function TeachersSection({ teachers, departments, onRefresh }: {
+  teachers: any[];
+  departments: any[];
+  onRefresh: () => Promise<void>;
+}) {
+  const [showAdd,  setShowAdd]  = useState(false);
+  const [saving,   setSaving]   = useState(false);
+  const [errMsg,   setErrMsg]   = useState("");
   const [formData, setFormData] = useState({
-    id: "",
-    name: "",
-    email: "",
-    designation: "Lecturer",
-    dept: "",
-    office: "",
+    id: "", name: "", email: "", designation: "Lecturer", dept_id: "", office: "",
   });
 
-  const handleDelete = (id: string) => {
-    if (confirm("Remove this teacher from records?")) {
-      onSave(teachers.filter(t => t.id !== id));
+  const handleAdd = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrMsg("");
+    if (!formData.id || !formData.name || !formData.email || !formData.dept_id) {
+      setErrMsg("Please fill in all required fields.");
+      return;
+    }
+    setSaving(true);
+    try {
+      await addTeacher({
+        teacher_id:      formData.id,
+        full_name:       formData.name,
+        email:           formData.email,
+        designation:     formData.designation,
+        department_id:   Number(formData.dept_id),
+        office_location: formData.office,
+      });
+      setFormData({ id: "", name: "", email: "", designation: "Lecturer", dept_id: "", office: "" });
+      setShowAdd(false);
+      await onRefresh();
+    } catch (err: any) {
+      setErrMsg(err.message);
+    } finally {
+      setSaving(false);
     }
   };
 
-  const handleAdd = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.id || !formData.name || !formData.email || !formData.dept) {
-      alert("Please fill in all required fields.");
-      return;
+  const handleDelete = async (teacher_id: string) => {
+    if (!confirm("Remove this teacher from records?")) return;
+    try {
+      await deleteTeacher(teacher_id);
+      await onRefresh();
+    } catch (err: any) {
+      alert(err.message);
     }
-    onSave([...teachers, { ...formData, status: "Active" }]);
-    setFormData({ id: "", name: "", email: "", designation: "Lecturer", dept: "", office: "" });
-    setShowAdd(false);
   };
 
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem" }}>
         <SectionHeader title="Faculty List" sub={`${teachers.length} teachers across all departments`} />
-        <button onClick={() => setShowAdd(!showAdd)}
-          style={{ padding: "10px 20px", borderRadius: "12px", border: "none", cursor: "pointer", background: showAdd ? "var(--neu-bg)" : "linear-gradient(135deg,#48c97e,#5dd891)",
-          boxShadow: showAdd ? SH_IN_SM : "6px 6px 14px #b3ddc5,-4px -4px 10px #ffffff", color: showAdd ? "var(--neu-text)" : "#fff", fontWeight: 700, fontSize: "0.85rem", transition: "all 0.2s" }}>
+        <button onClick={() => { setShowAdd(!showAdd); setErrMsg(""); }}
+          style={{ padding: "10px 20px", borderRadius: "12px", border: "none", cursor: "pointer",
+            background: showAdd ? "var(--neu-bg)" : "linear-gradient(135deg,#48c97e,#5dd891)",
+            boxShadow: showAdd ? SH_IN_SM : "6px 6px 14px #b3ddc5,-4px -4px 10px #ffffff",
+            color: showAdd ? "var(--neu-text)" : "#fff", fontWeight: 700, fontSize: "0.85rem", transition: "all 0.2s" }}>
           {showAdd ? "Cancel" : "+ Add Teacher"}
         </button>
       </div>
@@ -68,18 +92,20 @@ export default function TeachersSection({ teachers, departments, onSave }: { tea
             </div>
             <div>
               <FieldLabel>Department</FieldLabel>
-              <select className="neu-input" style={selStyle} value={formData.dept} onChange={e => setFormData({ ...formData, dept: e.target.value })}>
+              <select className="neu-input" style={selStyle} value={formData.dept_id} onChange={e => setFormData({ ...formData, dept_id: e.target.value })}>
                 <option value="">— Select Dept —</option>
-                {departments.map(d => <option key={d.id} value={d.name}>{d.name}</option>)}
+                {departments.map(d => <option key={d.department_id} value={d.department_id}>{d.department_name}</option>)}
               </select>
             </div>
             <div>
               <FieldLabel>Office Location</FieldLabel>
               <input type="text" className="neu-input" value={formData.office} onChange={e => setFormData({ ...formData, office: e.target.value })} placeholder="Block A, Room 12" />
             </div>
+            {errMsg && <div style={{ gridColumn: "span 3", fontSize: "0.82rem", color: "#e05c5c", fontWeight: 600 }}>⚠ {errMsg}</div>}
             <div style={{ gridColumn: "span 3", textAlign: "right" }}>
-              <button type="submit" style={{ padding: "12px 30px", borderRadius: "14px", border: "none", cursor: "pointer", background: "linear-gradient(135deg,#48c97e,#5dd891)", boxShadow: "6px 6px 14px #b3ddc5,-4px -4px 10px #ffffff", color: "#fff", fontWeight: 800, fontSize: "0.9rem" }}>
-                Confirm Registration
+              <button type="submit" disabled={saving}
+                style={{ padding: "12px 30px", borderRadius: "14px", border: "none", cursor: saving ? "not-allowed" : "pointer", background: "linear-gradient(135deg,#48c97e,#5dd891)", boxShadow: "6px 6px 14px #b3ddc5,-4px -4px 10px #ffffff", color: "#fff", fontWeight: 800, fontSize: "0.9rem", opacity: saving ? 0.7 : 1 }}>
+                {saving ? "Saving…" : "Confirm Registration"}
               </button>
             </div>
           </form>
@@ -87,19 +113,22 @@ export default function TeachersSection({ teachers, departments, onSave }: { tea
       )}
 
       <div style={{ background: "var(--neu-bg)", borderRadius: "20px", boxShadow: SH_OUT, overflow: "hidden" }}>
-        <TblHead cols={["#","ID","Name","Email","Designation","Department","Status", "Action"]} />
+        <TblHead cols={["#", "ID", "Name", "Email", "Designation", "Department", "Status", "Action"]} />
         {teachers.map((t, i) => (
-          <TblRow key={t.id} i={i}>
-            <C w="32px">{i+1}</C>
-            <C flex={0.8} mono color="var(--neu-muted)">{t.id}</C>
-            <C flex={1.4} bold>{t.name}</C>
+          <TblRow key={t.teacher_id} i={i}>
+            <C w="32px">{i + 1}</C>
+            <C flex={0.8} mono color="var(--neu-muted)">{t.teacher_id}</C>
+            <C flex={1.4} bold>{t.full_name}</C>
             <C flex={1.8}>{t.email}</C>
             <C flex={1.2}>{t.designation}</C>
-            <C flex={1.4}>{t.dept}</C>
+            <C flex={1.4}>{t.department_name}</C>
             <C flex={0.6}><StatusBadge s={t.status} /></C>
             <C flex={0.5}>
-              <button onClick={() => handleDelete(t.id)} style={{ padding: "6px", borderRadius: "8px", border: "none", background: "none", cursor: "pointer", color: "#e05c5c", opacity: 0.7 }} onMouseEnter={e => (e.currentTarget.style.opacity = "1")} onMouseLeave={e => (e.currentTarget.style.opacity = "0.7")}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+              <button onClick={() => handleDelete(t.teacher_id)}
+                style={{ padding: "6px", borderRadius: "8px", border: "none", background: "none", cursor: "pointer", color: "#e05c5c", opacity: 0.7 }}
+                onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+                onMouseLeave={e => (e.currentTarget.style.opacity = "0.7")}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
               </button>
             </C>
           </TblRow>

@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSidebar from "./dashboard/Sidebar";
-import { type CourseOffering, teachers as initialTeachers, studentsByYear as initialStudentsByYear, departments as initialDepartments, courses as initialCourses, type Student } from "./data";
 import { SH_BTN, SH_BTN_P, SH_OUT } from "./components/AdminUI";
+import {
+  fetchDepartments, fetchTeachers, fetchStudents, fetchCourses, fetchOfferings, fetchPrograms,
+} from "../api";
 
 // Sections
 import OverviewSection        from "./sections/Overview";
@@ -19,71 +21,55 @@ const sectionTitles: Record<string, string> = {
   manage: "Manage Offerings", offerings: "Offered Courses",
 };
 
-function loadOfferings(): CourseOffering[] {
-  try { return JSON.parse(localStorage.getItem("ums_offerings") || "[]"); }
-  catch { return []; }
-}
-
-function loadTeachers(): any[] {
-  try { return JSON.parse(localStorage.getItem("ums_teachers") || JSON.stringify(initialTeachers)); }
-  catch { return initialTeachers; }
-}
-
-function loadStudents(): Record<string, Student[]> {
-  try { return JSON.parse(localStorage.getItem("ums_students") || JSON.stringify(initialStudentsByYear)); }
-  catch { return initialStudentsByYear; }
-}
-
-function loadDepartments(): any[] {
-  try { return JSON.parse(localStorage.getItem("ums_departments") || JSON.stringify(initialDepartments)); }
-  catch { return initialDepartments; }
-}
-
-function loadCourses(): any[] {
-  try { return JSON.parse(localStorage.getItem("ums_courses") || JSON.stringify(initialCourses)); }
-  catch { return initialCourses; }
-}
-
 export default function AdminDashboard() {
-  const [active,    setActive]    = useState("overview");
-  const [collapsed, setCollapsed] = useState(false);
+  const [active,      setActive]      = useState("overview");
+  const [collapsed,   setCollapsed]   = useState(false);
+  const [loading,     setLoading]     = useState(true);
+  const [error,       setError]       = useState("");
 
-  const [offerings,   setOfferings]   = useState<CourseOffering[]>(loadOfferings);
-  const [teachers,    setTeachers]    = useState<any[]>(loadTeachers);
-  const [students,    setStudents]    = useState<Record<string, Student[]>>(loadStudents);
-  const [departments, setDepartments] = useState<any[]>(loadDepartments);
-  const [courses,     setCourses]     = useState<any[]>(loadCourses);
+  // All data lives here — sourced from DB
+  const [departments, setDepartments] = useState<any[]>([]);
+  const [programs,    setPrograms]    = useState<any[]>([]);
+  const [teachers,    setTeachers]    = useState<any[]>([]);
+  const [students,    setStudents]    = useState<any[]>([]);
+  const [courses,     setCourses]     = useState<any[]>([]);
+  const [offerings,   setOfferings]   = useState<any[]>([]);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!localStorage.getItem("ums_admin")) navigate("/admin/login");
+  // Load all data from backend on mount
+  const loadAll = useCallback(async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const [depts, progs, tchs, studs, crs, offs] = await Promise.all([
+        fetchDepartments(),
+        fetchPrograms(),
+        fetchTeachers(),
+        fetchStudents(),
+        fetchCourses(),
+        fetchOfferings(),
+      ]);
+      setDepartments(depts);
+      setPrograms(progs);
+      setTeachers(tchs);
+      setStudents(studs);
+      setCourses(crs);
+      setOfferings(offs);
+    } catch (e: any) {
+      setError(e.message || "Failed to load data from server.");
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const saveOfferings = (data: CourseOffering[]) => {
-    setOfferings(data);
-    localStorage.setItem("ums_offerings", JSON.stringify(data));
-  };
-
-  const saveTeachers = (data: any[]) => {
-    setTeachers(data);
-    localStorage.setItem("ums_teachers", JSON.stringify(data));
-  };
-
-  const saveStudents = (data: Record<string, Student[]>) => {
-    setStudents(data);
-    localStorage.setItem("ums_students", JSON.stringify(data));
-  };
-
-  const saveDepartments = (data: any[]) => {
-    setDepartments(data);
-    localStorage.setItem("ums_departments", JSON.stringify(data));
-  };
-
-  const saveCourses = (data: any[]) => {
-    setCourses(data);
-    localStorage.setItem("ums_courses", JSON.stringify(data));
-  };
+  useEffect(() => {
+    if (!localStorage.getItem("ums_admin")) {
+      navigate("/admin/login");
+      return;
+    }
+    loadAll();
+  }, []);
 
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "var(--neu-bg)" }}>
@@ -105,6 +91,13 @@ export default function AdminDashboard() {
             </div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            {/* Refresh button */}
+            <button onClick={loadAll} title="Refresh data from DB"
+              style={{ width: "38px", height: "38px", borderRadius: "10px", border: "none", cursor: "pointer", background: "var(--neu-bg)", boxShadow: SH_BTN, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--neu-muted)", transition: "box-shadow 0.2s" }}
+              onMouseEnter={e => (e.currentTarget.style.boxShadow = SH_BTN_P)}
+              onMouseLeave={e => (e.currentTarget.style.boxShadow = SH_BTN)}>
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            </button>
             <div style={{ width: "38px", height: "38px", borderRadius: "50%", background: "var(--neu-bg)", boxShadow: SH_OUT, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: "0.9rem", color: "#e05c5c" }}>A</div>
             <div>
               <p style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--neu-text)" }}>Administrator</p>
@@ -115,13 +108,28 @@ export default function AdminDashboard() {
 
         {/* Main Content Area */}
         <main style={{ flex: 1, overflowY: "auto", padding: "2rem 2rem 3rem" }}>
-          {active === "overview"    && <OverviewSection teachers={teachers} students={students} offerings={offerings} departments={departments} />}
-          {active === "teachers"    && <TeachersSection teachers={teachers} departments={departments} onSave={saveTeachers} />}
-          {active === "students"    && <StudentsSection studentsByYear={students} departments={departments} onSave={saveStudents} />}
-          {active === "courses"     && <CoursesSection courses={courses} departments={departments} onSave={saveCourses} />}
-          {active === "departments" && <DepartmentsSection teachers={teachers} studentsByYear={students} departments={departments} courses={courses} onSave={saveDepartments} />}
-          {active === "manage"      && <ManageOfferingsSection offerings={offerings} departments={departments} teachers={teachers} studentsByYear={students} courses={courses} onSave={saveOfferings} />}
-          {active === "offerings"   && <OfferedCoursesSection  offerings={offerings} courses={courses} onSave={saveOfferings} />}
+          {loading ? (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", flexDirection: "column", gap: "1rem" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "50%", border: "4px solid var(--neu-bg)", borderTop: "4px solid #6c63ff", animation: "spin 0.8s linear infinite" }} />
+              <p style={{ fontSize: "0.88rem", color: "var(--neu-muted)" }}>Loading data from database…</p>
+              <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            </div>
+          ) : error ? (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60vh", flexDirection: "column", gap: "1rem" }}>
+              <p style={{ fontSize: "1rem", color: "#e05c5c", fontWeight: 700 }}>⚠ {error}</p>
+              <button onClick={loadAll} style={{ padding: "10px 24px", borderRadius: "12px", border: "none", cursor: "pointer", background: "linear-gradient(135deg,#6c63ff,#8b85ff)", color: "#fff", fontWeight: 700 }}>Retry</button>
+            </div>
+          ) : (
+            <>
+              {active === "overview"    && <OverviewSection teachers={teachers} students={students} offerings={offerings} departments={departments} />}
+              {active === "teachers"    && <TeachersSection teachers={teachers} departments={departments} onRefresh={loadAll} />}
+              {active === "students"    && <StudentsSection students={students} programs={programs} departments={departments} onRefresh={loadAll} />}
+              {active === "courses"     && <CoursesSection courses={courses} departments={departments} onRefresh={loadAll} />}
+              {active === "departments" && <DepartmentsSection teachers={teachers} students={students} departments={departments} courses={courses} onRefresh={loadAll} />}
+              {active === "manage"      && <ManageOfferingsSection offerings={offerings} departments={departments} teachers={teachers} students={students} courses={courses} onRefresh={loadAll} />}
+              {active === "offerings"   && <OfferedCoursesSection offerings={offerings} onRefresh={loadAll} />}
+            </>
+          )}
         </main>
       </div>
     </div>
