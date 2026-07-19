@@ -18,7 +18,7 @@ const sectionTitles: Record<string, string> = {
 };
 
 export default function Header({ onToggleSidebar, onOpenProfile, activeSection }: HeaderProps) {
-  const p = studentProfile;
+  const p = studentProfile || { name: "Student", id: "0000" };
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
 
@@ -65,7 +65,7 @@ export default function Header({ onToggleSidebar, onOpenProfile, activeSection }
             {sectionTitles[activeSection] ?? "Dashboard"}
           </h1>
           <p style={{ fontSize: "0.75rem", color: "var(--neu-muted)" }}>
-            {greeting}, {p.name.split(" ")[0]} 👋
+            {greeting}, {(p.name || "Student").split(" ")[0]} 👋
           </p>
         </div>
       </div>
@@ -121,7 +121,7 @@ export default function Header({ onToggleSidebar, onOpenProfile, activeSection }
           onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff")}
           onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "9px 9px 16px #bebebe, -9px -9px 16px #ffffff")}
         >
-          {p.name.charAt(0)}
+          {(p.name || "S").charAt(0)}
         </button>
 
         {/* Name beside avatar */}

@@ -43,23 +43,26 @@ export function DeadlinesWidget() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "9px" }}>
-        {upcomingAssessments.map((a, i) => {
-          const course   = courses.find((c) => c.code === a.courseCode);
-          const dotColor = TYPE_COLOR[a.type] ?? "#888";
+        {(upcomingAssessments || []).length === 0 ? (
+          <p style={{ fontSize: "0.8rem", color: "var(--neu-muted)", textAlign: "center", padding: "1rem" }}>No upcoming deadlines.</p>
+        ) : (
+          (upcomingAssessments || []).map((a, i) => {
+            const course   = (courses || []).find((c) => c?.code === a?.courseCode);
+            const dotColor = TYPE_COLOR[a.type] ?? "#888";
 
-          return (
-            <div
-              key={i}
-              style={{
-                display:      "flex",
-                alignItems:   "center",
-                gap:          "10px",
-                padding:      "10px 12px",
-                borderRadius: "14px",
-                background:   "var(--neu-bg)",
-                boxShadow:    SH_IN_SM,
-              }}
-            >
+            return (
+              <div
+                key={i}
+                style={{
+                  display:      "flex",
+                  alignItems:   "center",
+                  gap:          "10px",
+                  padding:      "10px 12px",
+                  borderRadius: "14px",
+                  background:   "var(--neu-bg)",
+                  boxShadow:    SH_IN_SM,
+                }}
+              >
               {/* color dot for type */}
               <span
                 style={{
@@ -111,10 +114,11 @@ export function DeadlinesWidget() {
 
 // ─── Announcements Feed widget ────────────────────────────────────────────────
 export function AnnouncementsWidget() {
+  const list = announcements || [];
   // pinned first, then rest
   const ordered = [
-    ...announcements.filter((a) => a.pinned),
-    ...announcements.filter((a) => !a.pinned),
+    ...list.filter((a) => a?.pinned),
+    ...list.filter((a) => !a?.pinned),
   ];
 
   return (
@@ -146,21 +150,25 @@ export function AnnouncementsWidget() {
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "9px" }}>
-        {ordered.map((a, i) => {
-          const course = courses.find((c) => c.code === a.courseCode);
-          return (
-            <div
-              key={i}
-              style={{
-                padding:      "11px 13px",
-                borderRadius: "14px",
-                background:   "var(--neu-bg)",
-                /* recessed — from the spec */
-                boxShadow:    SH_IN_SM,
-                /* left accent line using a gradient border trick */
-                borderLeft:   `3px solid ${course?.color ?? "#aaa"}`,
-              }}
-            >
+        {ordered.length === 0 ? (
+          <p style={{ fontSize: "0.8rem", color: "var(--neu-muted)", textAlign: "center", padding: "1rem" }}>No announcements yet.</p>
+        ) : (
+          ordered.map((a, i) => {
+            if (!a) return null;
+            const course = (courses || []).find((c) => c?.code === a?.courseCode);
+            return (
+              <div
+                key={i}
+                style={{
+                  padding:      "11px 13px",
+                  borderRadius: "14px",
+                  background:   "var(--neu-bg)",
+                  /* recessed — from the spec */
+                  boxShadow:    SH_IN_SM,
+                  /* left accent line using a gradient border trick */
+                  borderLeft:   `3px solid ${course?.color ?? "#aaa"}`,
+                }}
+              >
               {/* course code + pin badge */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "4px" }}>
                 <span

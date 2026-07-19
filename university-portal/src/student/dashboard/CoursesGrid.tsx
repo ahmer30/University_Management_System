@@ -14,7 +14,8 @@ const SH_BTN   = "5px 5px 10px #bebebe, -5px -5px 10px #ffffff";
 const SH_BTN_P = "inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff";
 
 export default function CoursesGrid({ onCourseClick }: CoursesGridProps) {
-  const totalCredits = courses.reduce((s, c) => s + c.credits, 0);
+  const courseList = courses || [];
+  const totalCredits = courseList.reduce((s, c) => s + (c?.credits || 0), 0);
 
   return (
     <section>
@@ -34,16 +35,20 @@ export default function CoursesGrid({ onCourseClick }: CoursesGridProps) {
             Current Courses
           </h2>
           <p style={{ fontSize: "0.82rem", color: "var(--neu-muted)", marginTop: "3px" }}>
-            Fall 2026 &nbsp;·&nbsp; {courses.length} courses &nbsp;·&nbsp; {totalCredits} credits
+            Fall 2026 &nbsp;·&nbsp; {courseList.length} courses &nbsp;·&nbsp; {totalCredits} credits
           </p>
         </div>
       </div>
 
       {/* Stacked list */}
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        {courses.map((course) => (
-          <CourseRow key={course.id} course={course} onClick={onCourseClick} />
-        ))}
+        {courseList.length === 0 ? (
+           <p style={{ padding: "2rem", textAlign: "center", color: "var(--neu-muted)", background: "var(--neu-bg)", borderRadius: "18px", boxShadow: SH_IN_SM }}>No courses enrolled yet.</p>
+        ) : (
+          courseList.map((course) => (
+            course && <CourseRow key={course.id} course={course} onClick={onCourseClick} />
+          ))
+        )}
       </div>
     </section>
   );

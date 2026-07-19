@@ -24,7 +24,7 @@ const Row = ({ label, value }: { label: string; value: string }) => (
 );
 
 export default function ProfilePanel({ onClose }: ProfilePanelProps) {
-  const p = studentProfile;
+  const p = studentProfile || { name: "Student", id: "0000", gpa: 0, program: "N/A", semester: "N/A", enrollmentDate: "N/A", advisor: "N/A", email: "N/A", phone: "N/A", dob: "N/A", address: "N/A" };
 
   return (
     <>
@@ -93,7 +93,7 @@ export default function ProfilePanel({ onClose }: ProfilePanelProps) {
               color: "var(--neu-accent)",
             }}
           >
-            {p.name.charAt(0)}
+            {(p.name || "S").charAt(0)}
           </div>
           <div style={{ textAlign: "center" }}>
             <p style={{ fontWeight: 700, fontSize: "1.1rem", color: "var(--neu-text)" }}>{p.name}</p>
