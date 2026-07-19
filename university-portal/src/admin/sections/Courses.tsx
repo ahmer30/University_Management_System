@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { addCourse, deleteCourse } from "../../api";
-import { SH_OUT, SH_IN_SM, SectionHeader, TblHead, TblRow, C, FieldLabel, selStyle } from "../components/AdminUI";
+import { SH_OUT, SH_IN_SM, SectionHeader, TblHead, TblRow, C, FieldLabel, selStyle, ConfirmModal } from "../components/AdminUI";
 
 // dept color map (mirrors data.ts)
 const DEPT_COLORS: Record<string, string> = {
@@ -17,6 +17,7 @@ export default function CoursesSection({ courses, departments, onRefresh }: {
 }) {
   const [showAdd,  setShowAdd]  = useState(false);
   const [saving,   setSaving]   = useState(false);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
   const [errMsg,   setErrMsg]   = useState("");
   const [formData, setFormData] = useState({
     code: "", title: "", dept_id: "", credits: "3", room: "",
@@ -48,13 +49,15 @@ export default function CoursesSection({ courses, departments, onRefresh }: {
     }
   };
 
-  const handleDelete = async (course_id: number) => {
-    if (!confirm("Remove this course from the catalog?")) return;
+  const handleConfirmDelete = async () => {
+    if (!deletingId) return;
     try {
-      await deleteCourse(course_id);
+      await deleteCourse(deletingId);
       await onRefresh();
     } catch (err: any) {
       alert(err.message);
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -123,7 +126,7 @@ export default function CoursesSection({ courses, departments, onRefresh }: {
               <C flex={0.7}>{c.room_location ?? "—"}</C>
               <C flex={0.5}>{c.credits}</C>
               <C flex={0.5}>
-                <button onClick={() => handleDelete(c.course_id)}
+                <button onClick={() => setDeletingId(c.course_id)}
                   style={{ padding: "6px", borderRadius: "8px", border: "none", background: "none", cursor: "pointer", color: "#e05c5c", opacity: 0.7 }}
                   onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
                   onMouseLeave={e => (e.currentTarget.style.opacity = "0.7")}>
@@ -134,6 +137,14 @@ export default function CoursesSection({ courses, departments, onRefresh }: {
           );
         })}
       </div>
+
+      <ConfirmModal
+        isOpen={!!deletingId}
+        title="Remove Course"
+        message="Are you sure you want to remove this course from the catalog? This will affect enrollments."
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeletingId(null)}
+      />
     </div>
   );
 }

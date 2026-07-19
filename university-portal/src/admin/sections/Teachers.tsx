@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { addTeacher, deleteTeacher } from "../../api";
-import { SH_OUT, SH_IN_SM, SectionHeader, TblHead, TblRow, C, StatusBadge, FieldLabel, selStyle } from "../components/AdminUI";
+import { SH_OUT, SH_IN_SM, SectionHeader, TblHead, TblRow, C, StatusBadge, FieldLabel, selStyle, ConfirmModal } from "../components/AdminUI";
 
 export default function TeachersSection({ teachers, departments, onRefresh }: {
   teachers: any[];
@@ -9,6 +9,7 @@ export default function TeachersSection({ teachers, departments, onRefresh }: {
 }) {
   const [showAdd,  setShowAdd]  = useState(false);
   const [saving,   setSaving]   = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [errMsg,   setErrMsg]   = useState("");
   const [formData, setFormData] = useState({
     id: "", name: "", email: "", designation: "Lecturer", dept_id: "", office: "",
@@ -41,13 +42,15 @@ export default function TeachersSection({ teachers, departments, onRefresh }: {
     }
   };
 
-  const handleDelete = async (teacher_id: string) => {
-    if (!confirm("Remove this teacher from records?")) return;
+  const handleConfirmDelete = async () => {
+    if (!deletingId) return;
     try {
-      await deleteTeacher(teacher_id);
+      await deleteTeacher(deletingId);
       await onRefresh();
     } catch (err: any) {
       alert(err.message);
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -124,7 +127,7 @@ export default function TeachersSection({ teachers, departments, onRefresh }: {
             <C flex={1.4}>{t.department_name}</C>
             <C flex={0.6}><StatusBadge s={t.status} /></C>
             <C flex={0.5}>
-              <button onClick={() => handleDelete(t.teacher_id)}
+              <button onClick={() => setDeletingId(t.teacher_id)}
                 style={{ padding: "6px", borderRadius: "8px", border: "none", background: "none", cursor: "pointer", color: "#e05c5c", opacity: 0.7 }}
                 onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
                 onMouseLeave={e => (e.currentTarget.style.opacity = "0.7")}>
@@ -134,6 +137,14 @@ export default function TeachersSection({ teachers, departments, onRefresh }: {
           </TblRow>
         ))}
       </div>
+
+      <ConfirmModal
+        isOpen={!!deletingId}
+        title="Delete Teacher"
+        message="Are you sure you want to remove this faculty member? This action cannot be undone."
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeletingId(null)}
+      />
     </div>
   );
 }

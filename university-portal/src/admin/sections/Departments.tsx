@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { addDepartment, deleteDepartment } from "../../api";
-import { SH_OUT, SH_HOVER, SH_IN_SM, SH_BTN, SectionHeader, StatPill, FieldLabel } from "../components/AdminUI";
+import { SH_OUT, SH_HOVER, SH_IN_SM, SH_BTN, SectionHeader, StatPill, FieldLabel, ConfirmModal } from "../components/AdminUI";
 
 const DEPT_COLORS: Record<string, string> = {
   "Computer Science":       "#6c63ff",
@@ -26,6 +26,7 @@ export default function DepartmentsSection({ teachers, students, departments, co
   const [showAdd,          setShowAdd]          = useState(false);
   const [isDeleteMode,     setIsDeleteMode]     = useState(false);
   const [selectedToDelete, setSelectedToDelete] = useState<number[]>([]);
+  const [showConfirm,      setShowConfirm]      = useState(false);
   const [saving,           setSaving]           = useState(false);
   const [errMsg,           setErrMsg]           = useState("");
   const [formData,         setFormData]         = useState({ name: "" });
@@ -52,14 +53,13 @@ export default function DepartmentsSection({ teachers, students, departments, co
   };
 
   const executeDelete = async () => {
-    if (selectedToDelete.length === 0) { setIsDeleteMode(false); return; }
-    if (!confirm(`Delete ${selectedToDelete.length} department(s)? This will fail if they have linked records.`)) return;
     try {
       for (const id of selectedToDelete) {
         await deleteDepartment(id);
       }
       setSelectedToDelete([]);
       setIsDeleteMode(false);
+      setShowConfirm(false);
       await onRefresh();
     } catch (err: any) {
       alert(err.message);
@@ -91,14 +91,24 @@ export default function DepartmentsSection({ teachers, students, departments, co
                 style={{ padding: "10px 20px", borderRadius: "12px", border: "none", cursor: "pointer", background: "var(--neu-bg)", boxShadow: SH_BTN, color: "var(--neu-muted)", fontWeight: 700, fontSize: "0.85rem" }}>
                 Exit Deletion
               </button>
-              <button onClick={executeDelete}
-                style={{ padding: "10px 20px", borderRadius: "12px", border: "none", cursor: "pointer", background: "#e05c5c", boxShadow: "6px 6px 14px #d4b4b4,-4px -4px 10px #ffffff", color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}>
+              <button onClick={() => selectedToDelete.length > 0 && setShowConfirm(true)}
+                style={{ padding: "10px 20px", borderRadius: "12px", border: "none", cursor: selectedToDelete.length > 0 ? "pointer" : "not-allowed", background: "#e05c5c", boxShadow: "6px 6px 14px #d4b4b4,-4px -4px 10px #ffffff", color: "#fff", fontWeight: 700, fontSize: "0.85rem", opacity: selectedToDelete.length > 0 ? 1 : 0.6 }}>
                 Confirm Delete ({selectedToDelete.length})
               </button>
             </>
           )}
         </div>
       </div>
+
+      {/* ... existing forms ... */}
+
+      <ConfirmModal
+        isOpen={showConfirm}
+        title="Delete Departments"
+        message={`Are you sure you want to delete ${selectedToDelete.length} department(s)? This will remove all associated course links and records permanently.`}
+        onConfirm={executeDelete}
+        onCancel={() => setShowConfirm(false)}
+      />
 
       {showAdd && !isDeleteMode && (
         <div style={{ background: "var(--neu-bg)", borderRadius: "20px", boxShadow: SH_OUT, padding: "2rem", marginBottom: "2rem", borderTop: "4px solid #e05c5c" }}>

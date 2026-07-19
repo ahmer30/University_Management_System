@@ -103,3 +103,28 @@ export function StepLabel({ num, title, active }: { num: string; title: string; 
     </div>
   );
 }
+
+export function ConfirmModal({ isOpen, title, message, onConfirm, onCancel, confirmText = "Delete" }: { isOpen: boolean; title: string; message: string; onConfirm: () => void; onCancel: () => void; confirmText?: string }) {
+  if (!isOpen) return null;
+
+  return (
+    <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "rgba(0,0,0,0.15)", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000 }}>
+      <div style={{ width: "380px", background: "var(--neu-bg)", borderRadius: "24px", boxShadow: SH_OUT, padding: "2rem", textAlign: "center" }}>
+        <div style={{ width: "60px", height: "60px", borderRadius: "50%", background: "var(--neu-bg)", boxShadow: SH_IN_SM, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem", color: "#e05c5c" }}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </div>
+        <h3 style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--neu-text)", marginBottom: "0.5rem" }}>{title}</h3>
+        <p style={{ fontSize: "0.88rem", color: "var(--neu-muted)", marginBottom: "2rem", lineHeight: 1.6 }}>{message}</p>
+
+        <div style={{ display: "flex", gap: "12px" }}>
+          <button onClick={onCancel} style={{ flex: 1, padding: "12px", borderRadius: "12px", border: "none", cursor: "pointer", background: "var(--neu-bg)", boxShadow: SH_BTN, fontWeight: 700, color: "var(--neu-muted)", transition: "all 0.15s" }}>
+            Cancel
+          </button>
+          <button onClick={onConfirm} style={{ flex: 1, padding: "12px", borderRadius: "12px", border: "none", cursor: "pointer", background: "linear-gradient(135deg, #e05c5c, #f17b7b)", boxShadow: "6px 6px 12px #d4b4b4, -4px -4px 10px #ffffff", fontWeight: 700, color: "#fff", transition: "all 0.15s" }}>
+            {confirmText}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

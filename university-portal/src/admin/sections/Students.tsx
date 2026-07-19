@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { addStudent, deleteStudent } from "../../api";
-import { SH_OUT, SH_IN_SM, SH_BTN, SectionHeader, TblHead, TblRow, C, ProgBadge, Empty, FieldLabel, selStyle } from "../components/AdminUI";
+import { SH_OUT, SH_IN_SM, SH_BTN, SectionHeader, TblHead, TblRow, C, ProgBadge, Empty, FieldLabel, selStyle, ConfirmModal } from "../components/AdminUI";
 
 export default function StudentsSection({ students, programs, onRefresh }: {
   students: any[];
@@ -11,18 +11,11 @@ export default function StudentsSection({ students, programs, onRefresh }: {
   const [activeYear, setActiveYear] = useState<string>("all");
   const [showAdd,    setShowAdd]    = useState(false);
   const [saving,     setSaving]     = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [errMsg,     setErrMsg]     = useState("");
   const [formData,   setFormData]   = useState({
     id: "", name: "", email: "", program_id: "", batch_year: "",
   });
-
-  // Derive unique batch years from the DB data
-  const years: string[] = useMemo(() => {
-    const ys = [...new Set(students.map(s => String(s.batch_year)))].sort((a, b) => Number(b) - Number(a));
-    return ys;
-  }, [students]);
-
-  const filtered = activeYear === "all" ? students : students.filter(s => String(s.batch_year) === activeYear);
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,13 +43,15 @@ export default function StudentsSection({ students, programs, onRefresh }: {
     }
   };
 
-  const handleDelete = async (student_id: string) => {
-    if (!confirm("Remove this student from records?")) return;
+  const handleConfirmDelete = async () => {
+    if (!deletingId) return;
     try {
-      await deleteStudent(student_id);
+      await deleteStudent(deletingId);
       await onRefresh();
     } catch (err: any) {
       alert(err.message);
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -139,7 +134,7 @@ export default function StudentsSection({ students, programs, onRefresh }: {
                 <C flex={1.4}>{s.department_name}</C>
                 <C flex={0.6}>{s.batch_year}</C>
                 <C flex={0.5}>
-                  <button onClick={() => handleDelete(s.student_id)}
+                  <button onClick={() => setDeletingId(s.student_id)}
                     style={{ padding: "6px", borderRadius: "8px", border: "none", background: "none", cursor: "pointer", color: "#e05c5c", opacity: 0.7 }}
                     onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
                     onMouseLeave={e => (e.currentTarget.style.opacity = "0.7")}>
@@ -151,6 +146,14 @@ export default function StudentsSection({ students, programs, onRefresh }: {
           </div>
         )
       }
+
+      <ConfirmModal
+        isOpen={!!deletingId}
+        title="Remove Student"
+        message="Are you sure you want to remove this student from the records? This action cannot be undone."
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeletingId(null)}
+      />
     </div>
   );
 }
